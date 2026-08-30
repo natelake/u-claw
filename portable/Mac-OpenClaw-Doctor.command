@@ -1,8 +1,8 @@
 #!/bin/bash
 # ============================================================
-# U-Claw - OpenClaw Doctor (官方完整体检, 进阶, 英文)
-# 注意：先启动 U-Claw 再跑本工具，否则 doctor 会卡在探测未启动的 gateway 上。
-# 只读：故意不传 --fix/--repair/--force。卡住可按 Ctrl+C 安全中断。
+# U-Claw - OpenClaw Doctor (official full check, advanced, English)
+# NOTE: start U-Claw first, or doctor stalls probing a gateway that is not up.
+# Read-only: do not pass --fix/--repair/--force. Ctrl+C is safe.
 # ============================================================
 
 UCLAW_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -20,13 +20,13 @@ case "$ARCH" in
 esac
 if [ ! -x "$NODE_BIN" ]; then NODE_BIN="$(command -v node)"; fi
 if [ -z "$NODE_BIN" ] || [ ! -x "$NODE_BIN" ]; then
-    echo "  [错误] 找不到 Node 运行环境。"
-    read -p "  按回车关闭..."
+    echo "  [ERROR] Node runtime not found."
+    read -p "  Press Enter to close..."
     exit 1
 fi
 if [ ! -f "$OPENCLAW_MJS" ]; then
-    echo "  [错误] 找不到 OpenClaw 运行时 (app/core/node_modules/openclaw)。"
-    read -p "  按回车关闭..."
+    echo "  [ERROR] OpenClaw runtime not found (app/core/node_modules/openclaw)."
+    read -p "  Press Enter to close..."
     exit 1
 fi
 
@@ -39,14 +39,14 @@ xattr -rd com.apple.quarantine "$UCLAW_DIR" 2>/dev/null || true
 
 echo ""
 echo "  ========================================"
-echo "    OpenClaw Doctor (官方体检, 英文, 较慢)"
+echo "    OpenClaw Doctor (official, English, slower)"
 echo "  ========================================"
-echo "  请确保 U-Claw 已经在运行。卡住可 Ctrl+C 中断（只读，安全）。"
-echo "  想要快速的中文体检请改用 Mac-IntranetFix.command。"
+echo "  Make sure U-Claw is already running. Ctrl+C is safe (read-only)."
+echo "  For a quicker model-connection check, use Mac-IntranetFix.command."
 echo ""
-read -p "  按回车开始..."
+read -p "  Press Enter to start..."
 
 "$NODE_BIN" "$OPENCLAW_MJS" doctor --non-interactive
 
 echo ""
-read -p "  按回车关闭..."
+read -p "  Press Enter to close..."

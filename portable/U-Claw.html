@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>U-Claw 虾盘 - 启动导航</title>
+<title>U-Claw - Launcher</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+body { font-family: -apple-system, "Segoe UI", sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
 .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
 .header { text-align: center; margin-bottom: 40px; }
 .header h1 { font-size: 2.5em; margin-bottom: 8px; }
@@ -55,15 +55,15 @@ body { font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #0
 <div class="container">
 
 <div class="header">
-    <h1>🦞 <span>U-Claw</span> 虾盘 <span class="version">v1.1</span></h1>
-    <p>Portable AI Agent — 插上就能用的 AI 助手</p>
+    <h1>🦞 <span>U-Claw</span> <span class="version">v1.1</span></h1>
+    <p>Portable AI Agent — plug in and start</p>
 </div>
 
 <!-- Status Bar -->
 <div class="status-bar">
     <div class="status-dot off" id="statusDot"></div>
-    <span id="statusText">OpenClaw 未运行</span>
-    <a href="#" id="statusLink" class="status-link" style="display:none" target="_blank">打开控制台 →</a>
+    <span id="statusText">OpenClaw is not running</span>
+    <a href="#" id="statusLink" class="status-link" style="display:none" target="_blank">Open dashboard →</a>
 </div>
 
 <!-- OS Tabs -->
@@ -75,29 +75,29 @@ body { font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #0
 <!-- Mac Panel -->
 <div class="panel active" id="panel-mac">
     <div class="card">
-        <h3>🚀 快速启动</h3>
+        <h3>🚀 Quick start</h3>
         <div class="step">
             <div class="step-num">1</div>
-            <div class="step-text">双击 <code>Mac-Start.command</code></div>
+            <div class="step-text">Double-click <code>Mac-Start.command</code></div>
         </div>
         <div class="step">
             <div class="step-num">2</div>
-            <div class="step-text">首次运行自动打开<b>配置页面</b>，选模型、填 API Key 即可</div>
+            <div class="step-text">First run opens the <b>config page</b> so you can pick a model and enter an API Key</div>
         </div>
-        <p style="margin-top:12px; color:#999;">⚠️ 首次运行如果提示"无法验证开发者"：右键点击 → 打开</p>
-        <p style="margin-top:8px;">📝 也可以直接双击 <code>Config.html</code> 打开中文配置页面</p>
+        <p style="margin-top:12px; color:#999;">⚠️ First run may say the developer cannot be verified: right-click then Open</p>
+        <p style="margin-top:8px;">📝 Or double-click <code>Config.html</code> to open the config page</p>
     </div>
 
     <div class="card">
-        <h3>⚙️ 全部功能（配置/诊断/备份）</h3>
-        <p>双击 <code>Mac-Menu.command</code> 打开全功能菜单：</p>
+        <h3>⚙️ All tools (config / diagnose / backup)</h3>
+        <p>Double-click <code>Mac-Menu.command</code> for the full menu:</p>
         <div class="grid">
-            <div class="grid-item"><h4>中文配置页面</h4><p>Config.html — 选模型、填 Key、接 QQ</p></div>
-            <div class="grid-item"><h4>QQ Bot 接入</h4><p>已预装，只需 AppID + Secret</p></div>
-            <div class="grid-item"><h4>诊断修复</h4><p>openclaw doctor 一键检测</p></div>
-            <div class="grid-item"><h4>备份恢复</h4><p>配置和记忆一键备份</p></div>
-            <div class="grid-item"><h4>技能浏览</h4><p>52 个预装技能</p></div>
-            <div class="grid-item"><h4>系统信息</h4><p>版本、端口、运行状态</p></div>
+            <div class="grid-item"><h4>Config page</h4><p>Config.html — pick a model, enter a Key, optional chat apps</p></div>
+            <div class="grid-item"><h4>Optional chat apps</h4><p>Optional plugins; add AppID + Secret if you use them</p></div>
+            <div class="grid-item"><h4>Diagnose</h4><p>openclaw doctor one-click check</p></div>
+            <div class="grid-item"><h4>Backup / restore</h4><p>One-click backup of config and memory</p></div>
+            <div class="grid-item"><h4>Skills</h4><p>52 preinstalled skills</p></div>
+            <div class="grid-item"><h4>System info</h4><p>Version, ports, running status</p></div>
         </div>
     </div>
 </div>
@@ -105,52 +105,52 @@ body { font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #0
 <!-- Windows Panel -->
 <div class="panel" id="panel-win">
     <div class="card">
-        <h3>🚀 快速启动</h3>
+        <h3>🚀 Quick start</h3>
         <div class="step">
             <div class="step-num">1</div>
-            <div class="step-text">双击 <code>Windows-Start.bat</code></div>
+            <div class="step-text">Double-click <code>Windows-Start.bat</code></div>
         </div>
         <div class="step">
             <div class="step-num">2</div>
-            <div class="step-text">首次运行自动打开<b>配置页面</b>，选模型、填 API Key 即可</div>
+            <div class="step-text">First run opens the <b>config page</b> so you can pick a model and enter an API Key</div>
         </div>
-        <p style="margin-top:12px; color:#999;">⚠️ 如果弹出安全警告：点击"更多信息" → "仍要运行"</p>
+        <p style="margin-top:12px; color:#999;">⚠️ If Windows SmartScreen appears: More info then Run anyway</p>
     </div>
 
     <div class="card">
-        <h3>⚙️ 全部功能（配置/诊断/备份）</h3>
-        <p>双击 <code>Windows-Menu.bat</code> 打开全功能菜单：</p>
+        <h3>⚙️ All tools (config / diagnose / backup)</h3>
+        <p>Double-click <code>Windows-Menu.bat</code> for the full menu:</p>
         <div class="grid">
-            <div class="grid-item"><h4>配置向导</h4><p>选模型、填 API Key、选平台</p></div>
-            <div class="grid-item"><h4>QQ Bot 接入</h4><p>腾讯官方，3条命令搞定</p></div>
-            <div class="grid-item"><h4>诊断修复</h4><p>openclaw doctor 一键检测</p></div>
-            <div class="grid-item"><h4>备份恢复</h4><p>配置和记忆一键备份</p></div>
-            <div class="grid-item"><h4>技能浏览</h4><p>52 个预装技能</p></div>
-            <div class="grid-item"><h4>镜像配置</h4><p>npm 淘宝镜像</p></div>
+            <div class="grid-item"><h4>Config wizard</h4><p>Pick a model, enter API Key, choose a platform</p></div>
+            <div class="grid-item"><h4>Optional chat apps</h4><p>Optional; add credentials if you use them</p></div>
+            <div class="grid-item"><h4>Diagnose</h4><p>openclaw doctor one-click check</p></div>
+            <div class="grid-item"><h4>Backup / restore</h4><p>One-click backup of config and memory</p></div>
+            <div class="grid-item"><h4>Skills</h4><p>52 preinstalled skills</p></div>
+            <div class="grid-item"><h4>Registry</h4><p>Official package registry</p></div>
         </div>
     </div>
 </div>
 
 <!-- Common sections -->
-<div class="section-title">🤖 支持的 AI 模型（国内免翻墙）</div>
+<div class="section-title">🤖 Supported AI models</div>
 <div class="card">
     <div class="grid">
-        <div class="grid-item"><h4>DeepSeek</h4><p>编程首选，性价比最高</p></div>
-        <div class="grid-item"><h4>Kimi K2.5</h4><p>256K 上下文，长文档</p></div>
-        <div class="grid-item"><h4>通义千问 Qwen</h4><p>免费额度大</p></div>
-        <div class="grid-item"><h4>智谱 GLM</h4><p>学术、中文 NLP</p></div>
-        <div class="grid-item"><h4>MiniMax</h4><p>语音、多模态</p></div>
-        <div class="grid-item"><h4>豆包 Doubao</h4><p>字节跳动，火山引擎</p></div>
+        <div class="grid-item"><h4>DeepSeek</h4><p>Great for coding, inexpensive</p></div>
+        <div class="grid-item"><h4>Kimi K2.5</h4><p>256K context, long documents</p></div>
+        <div class="grid-item"><h4>Qwen</h4><p>Large free tier</p></div>
+        <div class="grid-item"><h4>Zhipu GLM</h4><p>Academic / Chinese NLP</p></div>
+        <div class="grid-item"><h4>MiniMax</h4><p>Voice and multimodal</p></div>
+        <div class="grid-item"><h4>Doubao</h4><p>ByteDance / Volcengine</p></div>
     </div>
 </div>
 
-<div class="section-title">📖 更多资料</div>
+<div class="section-title">📖 More</div>
 <div class="card">
     <div class="grid">
-        <div class="grid-item" onclick="window.open('帮助文档.html')" style="cursor:pointer"><h4>📖 帮助文档</h4><p>完整使用指南</p></div>
-        <div class="grid-item" onclick="window.open('技能市场.html')" style="cursor:pointer"><h4>🎯 技能市场</h4><p>39 个精选技能</p></div>
-        <div class="grid-item"><h4>💬 联系我们</h4><p>微信: hecare888</p></div>
-        <div class="grid-item"><h4>🌐 官网</h4><p><a href="https://u-claw.org" target="_blank" style="color:#ff6b35">u-claw.org</a></p></div>
+        <div class="grid-item" onclick="window.open('帮助文档.html')" style="cursor:pointer"><h4>📖 Help docs</h4><p>Full usage guide</p></div>
+        <div class="grid-item" onclick="window.open('技能市场.html')" style="cursor:pointer"><h4>🎯 Skill market</h4><p>39 featured skills</p></div>
+        <div class="grid-item"><h4>💬 Contact</h4><p>WeChat: hecare888 (upstream)</p></div>
+        <div class="grid-item"><h4>🌐 Website</h4><p><a href="https://u-claw.org" target="_blank" style="color:#ff6b35">u-claw.org</a></p></div>
     </div>
 </div>
 
@@ -195,13 +195,13 @@ async function checkStatus() {
     }
     if (found) {
         document.getElementById('statusDot').className = 'status-dot on';
-        document.getElementById('statusText').textContent = 'OpenClaw 运行中 (端口 ' + found + ')';
+        document.getElementById('statusText').textContent = 'OpenClaw running (port ' + found + ')';
         var link = document.getElementById('statusLink');
         link.style.display = 'inline';
         link.href = 'http://127.0.0.1:' + found + '/#token=uclaw';
     } else {
         document.getElementById('statusDot').className = 'status-dot off';
-        document.getElementById('statusText').textContent = 'OpenClaw 未运行 — 请先双击启动脚本';
+        document.getElementById('statusText').textContent = 'OpenClaw is not running — double-click a Start script first';
         document.getElementById('statusLink').style.display = 'none';
     }
 }

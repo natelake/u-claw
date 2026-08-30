@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
-# U-Claw - 内网/本地模型一键配置 (macOS)
-# 双击运行：命令行配 Ollama / newapi 并当场实测（不碰网页设置）
+# U-Claw - Local / intranet model setup (macOS)
+# Double-click: configure Ollama / newapi from the CLI and test (does not touch the web UI)
 # ============================================================
 
 UCLAW_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -16,8 +16,8 @@ case "$ARCH" in
 esac
 if [ ! -x "$NODE_BIN" ]; then NODE_BIN="$(command -v node)"; fi
 if [ -z "$NODE_BIN" ] || [ ! -x "$NODE_BIN" ]; then
-    echo "  [错误] 找不到 Node 运行环境。请先正常启动一次 U-Claw。"
-    read -p "  按回车关闭..."
+    echo "  [ERROR] Node runtime not found. Start U-Claw once first."
+    read -p "  Press Enter to close..."
     exit 1
 fi
 
@@ -26,4 +26,4 @@ xattr -rd com.apple.quarantine "$UCLAW_DIR" 2>/dev/null || true
 "$NODE_BIN" "$UCLAW_DIR/lib/setup-local-model.mjs" "$CONFIG_FILE"
 
 echo ""
-read -p "  按回车关闭..."
+read -p "  Press Enter to close..."

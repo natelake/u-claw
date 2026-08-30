@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>U-Claw 正在启动…</title>
+<title>U-Claw is starting…</title>
 <!--
   启动首屏（移植自 v2 u-clawx 4.0 的 splash 思路）。
   双击启动脚本后立刻打开本页，给用户即时反馈，消除"黑窗假死"体感。
   本页每秒自查 gateway 是否就绪（fetch /ready）。
 
   就绪后【不自动跳转】，而是停在选择页，给两个大按钮：
-    🚀 进入 Dashboard（开始聊天）
-    ⚙️ 配置 / 改模型（打开配置中心）
+    🚀 Open Dashboard（开始聊天）
+    ⚙️ Configure / change model（打开Config Center）
   让用户自己决定去聊天还是改配置——避免"配过模型就被冲进 Dashboard、想改配置还得自己翻标签"。
 
   端口通过 URL 查询参数传入：loading.html?port=18789
@@ -21,7 +21,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { height: 100%; }
 body {
-  font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-family: -apple-system, "Segoe UI", "SF Pro Text", sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   display: flex;
@@ -107,33 +107,33 @@ body.ready .ready-wrap { display: block; }
     <!-- 启动中 -->
     <div class="loading-wrap">
       <div class="logo">🦞</div>
-      <h1>U-Claw 正在启动</h1>
-      <div class="tip">首次从 U 盘启动需要展开内置组件，<br>稍等片刻，就绪后会提示你下一步。</div>
+      <h1>U-Claw is starting</h1>
+      <div class="tip">First USB start unpacks bundled components.<br>Please wait. You will choose the next step when ready.</div>
       <div class="spinner"></div>
       <div class="bar"><i></i></div>
-      <div class="status" id="status">正在等待 OpenClaw 网关…</div>
+      <div class="status" id="status">Waiting for the OpenClaw gateway…</div>
       <div class="elapsed" id="elapsed"></div>
       <div class="note">
-        慢 U 盘首次启动通常 30–90 秒。<br>
-        如果迟迟没反应，可先打开
-        <a class="manual" id="manual" href="#">配置中心</a>。
+        A slow USB first start is usually 30-90 seconds.<br>
+        If nothing happens, open the
+        <a class="manual" id="manual" href="#">Config Center</a>。
       </div>
     </div>
 
     <!-- 就绪后：让用户自己选 -->
     <div class="ready-wrap">
       <div class="logo">🦞</div>
-      <h1>U-Claw 已就绪</h1>
-      <div class="tip">选择下一步 — 直接开始聊天，或先去配置模型和渠道。</div>
+      <h1>U-Claw is ready</h1>
+      <div class="tip">Choose next: start chatting, or set up a model first.</div>
       <div class="actions">
-        <a class="btn btn-primary" id="goDash">🚀 进入 Dashboard
-          <span class="sub">开始和 AI 聊天</span>
+        <a class="btn btn-primary" id="goDash">🚀 Open Dashboard
+          <span class="sub">Start chatting with the AI</span>
         </a>
-        <a class="btn" id="goConfig">⚙️ 配置 / 改模型
-          <span class="sub">填写或更换模型 Key、充值、连接微信等渠道</span>
+        <a class="btn" id="goConfig">⚙️ Configure / change model
+          <span class="sub">Enter or change a model Key, or connect optional chat apps</span>
         </a>
       </div>
-      <div class="foot">没配过模型或余额不足？先点「配置 / 改模型」处理 Key 或充值。</div>
+      <div class="foot">No model yet, or out of credit? Open Configure / change model to add a Key or top up.</div>
     </div>
 
   </div>
@@ -156,7 +156,7 @@ body.ready .ready-wrap { display: block; }
 
   function fmt(ms) {
     var s = Math.floor(ms / 1000);
-    return '已等待 ' + s + ' 秒';
+    return 'Waited ' + s + 's';
   }
 
   function tickElapsed() {
@@ -188,7 +188,7 @@ body.ready .ready-wrap { display: block; }
   setTimeout(function () {
     if (!ready) {
       document.getElementById('status').innerHTML =
-        '启动较慢，可先打开 <a class="manual" href="' + configCenter + '">配置中心</a> 检查';
+        'Startup is slow. You can open the <a class="manual" href="' + configCenter + '">Config Center</a> to check';
     }
   }, 300000);
 })();

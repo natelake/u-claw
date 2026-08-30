@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
 # U-Claw Diagnostic Tool - macOS
-# 诊断工具
+# Diagnostic tool
 # ============================================================
 
 UCLAW_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -16,10 +16,10 @@ clear
 echo ""
 echo "  ========================================"
 echo "    U-Claw Diagnostic Tool"
-echo "    诊断工具"
+echo "    Diagnostic tool"
 echo "  ========================================"
 echo ""
-echo "  Checking system... 正在检查系统..."
+echo "  Checking system..."
 echo ""
 
 # Clear old log

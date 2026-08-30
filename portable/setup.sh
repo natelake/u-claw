@@ -1,8 +1,8 @@
 #!/bin/bash
 # ============================================================
-# U-Claw Portable — 开发环境搭建脚本
-# 用法: bash setup.sh
-# 作用: 下载 Node.js 运行时 + 安装 OpenClaw 到 app/ 目录
+# U-Claw Portable -- setup script
+# Usage: bash setup.sh
+# Downloads Node.js and installs OpenClaw into app/
 # ============================================================
 
 set -e
@@ -11,8 +11,10 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APP_DIR="$SCRIPT_DIR/app"
 CORE_DIR="$APP_DIR/core"
 RUNTIME_DIR="$APP_DIR/runtime"
-MIRROR="https://registry.npmmirror.com"
-NODE_MIRROR="https://npmmirror.com/mirrors/node"
+MIRROR="https://registry.npmjs.org"
+NODE_MIRROR="https://nodejs.org/dist"
+# China fallback (optional, not default): MIRROR="https://registry.npmmirror.com"
+# China fallback (optional, not default): NODE_MIRROR="https://npmmirror.com/mirrors/node"
 NODE_VERSION="v22.22.3"
 ALL_PLATFORMS=false
 [ "$1" = "--all-platforms" ] && ALL_PLATFORMS=true
@@ -41,20 +43,20 @@ if [ "$OS" = "Darwin" ]; then
         NODE_DIR_NAME="node-mac-x64"
     fi
 else
-    echo -e "${RED}请在 Mac 上运行此脚本。Windows 请用 setup.bat${NC}"
+    echo -e "${RED}Run this script on a Mac. On Windows use setup.bat${NC}"
     exit 1
 fi
 
-echo -e "  系统: ${GREEN}$OS $ARCH${NC}"
+echo -e "  System: ${GREEN}$OS $ARCH${NC}"
 echo ""
 
 # ---- 1. Download Node.js (Current Platform) ----
 NODE_TARGET="$RUNTIME_DIR/$NODE_DIR_NAME"
 
 if [ -f "$NODE_TARGET/bin/node" ]; then
-    echo -e "  ${GREEN}✓${NC} Node.js ($PLATFORM) 已存在，跳过下载"
+    echo -e "  ${GREEN}OK${NC} Node.js ($PLATFORM) already present, skipping"
 else
-    echo -e "  ${CYAN}↓${NC} 下载 Node.js $NODE_VERSION ($PLATFORM)..."
+    echo -e "  ${CYAN}->${NC} Downloading Node.js $NODE_VERSION ($PLATFORM)..."
     mkdir -p "$NODE_TARGET"
 
     NODE_URL="$NODE_MIRROR/$NODE_VERSION/node-$NODE_VERSION-$PLATFORM.tar.gz"
@@ -63,9 +65,9 @@ else
     curl -fSL "$NODE_URL" | tar xz -C "$NODE_TARGET" --strip-components=1
 
     if [ -f "$NODE_TARGET/bin/node" ]; then
-        echo -e "  ${GREEN}✓${NC} Node.js ($PLATFORM) 下载完成"
+        echo -e "  ${GREEN}OK${NC} Node.js ($PLATFORM) downloaded"
     else
-        echo -e "  ${RED}✗ Node.js 下载失败${NC}"
+        echo -e "  ${RED}X Node.js download failed${NC}"
         exit 1
     fi
 fi
@@ -74,9 +76,9 @@ fi
 if [ "$ALL_PLATFORMS" = "true" ]; then
     WIN_NODE_TARGET="$RUNTIME_DIR/node-win-x64"
     if [ -f "$WIN_NODE_TARGET/node.exe" ]; then
-        echo -e "  ${GREEN}✓${NC} Node.js (win-x64) 已存在，跳过下载"
+        echo -e "  ${GREEN}OK${NC} Node.js (win-x64) already present, skipping"
     else
-        echo -e "  ${CYAN}↓${NC} 下载 Node.js $NODE_VERSION (win-x64) - Windows支持..."
+        echo -e "  ${CYAN}->${NC} Downloading Node.js $NODE_VERSION (win-x64) for Windows..."
         mkdir -p "$WIN_NODE_TARGET"
 
         WIN_NODE_URL="$NODE_MIRROR/$NODE_VERSION/node-$NODE_VERSION-win-x64.zip"
@@ -95,18 +97,18 @@ if [ "$ALL_PLATFORMS" = "true" ]; then
         rm -f "$TMP_ZIP"
 
         if [ -f "$WIN_NODE_TARGET/node.exe" ]; then
-            echo -e "  ${GREEN}✓${NC} Node.js (win-x64) 下载完成"
+            echo -e "  ${GREEN}OK${NC} Node.js (win-x64) downloaded"
         else
-            echo -e "  ${CYAN}⚠${NC}  Windows runtime下载失败 (不影响当前平台使用)"
+            echo -e "  ${CYAN}!${NC}  Windows runtime download failed (current platform still works)"
         fi
     fi
 fi
 
 # ---- 2. Install OpenClaw ----
 if [ -d "$CORE_DIR/node_modules/openclaw" ]; then
-    echo -e "  ${GREEN}✓${NC} OpenClaw 已安装，跳过"
+    echo -e "  ${GREEN}OK${NC} OpenClaw already installed, skipping"
 else
-    echo -e "  ${CYAN}↓${NC} 安装 OpenClaw..."
+    echo -e "  ${CYAN}->${NC} Installing OpenClaw..."
     mkdir -p "$CORE_DIR"
 
     # Init package.json if not exists (pinned OpenClaw version from OPENCLAW_VERSION)
@@ -133,7 +135,7 @@ else
 PKGJSON
     fi
 
-    # Install with China mirror（缓存留盘内，拔盘不留痕）
+    # Install with official registry（缓存留盘内，拔盘不留痕）
     # --ignore-scripts 必须加：openclaw 的 preinstall 脚本会调系统 `node`，但便携版
     # 用的是 app/runtime 下的 node（不在 PATH），未装 Node 的 Mac 用户会因
     # "node: command not found" 安装失败 (code 127)。与 Mac-Start.command 的 fallback 对齐。
@@ -150,18 +152,18 @@ PKGJSON
     "$NODE_BIN" --check "$CORE_DIR/node_modules/openclaw/dist/chrome-DDq_K3xu.js"
     "$NODE_BIN" --check "$CORE_DIR/node_modules/openclaw/dist/replace-file-DfwQ8_Mi.js"
 
-    echo -e "  ${GREEN}✓${NC} OpenClaw 安装完成"
+    echo -e "  ${GREEN}OK${NC} OpenClaw installed"
 fi
 
 # ---- 3. Install QQ Plugin ----
 if [ -d "$CORE_DIR/node_modules/@sliverp/qqbot" ]; then
-    echo -e "  ${GREEN}✓${NC} QQ 插件已安装，跳过"
+    echo -e "  ${GREEN}OK${NC} QQ plugin already installed, skipping"
 else
-    echo -e "  ${CYAN}↓${NC} 安装 QQ 插件..."
+    echo -e "  ${CYAN}->${NC} Installing optional QQ plugin..."
     NODE_BIN="$NODE_TARGET/bin/node"
     NPM_BIN="$NODE_TARGET/bin/npm"
     npm_config_cache="$APP_DIR/.npm-cache" "$NODE_BIN" "$NPM_BIN" install @sliverp/qqbot@latest --prefix "$CORE_DIR" --registry="$MIRROR" --ignore-scripts --no-audit --no-fund --omit=dev 2>/dev/null || true
-    echo -e "  ${GREEN}✓${NC} QQ 插件安装完成"
+    echo -e "  ${GREEN}OK${NC} QQ plugin installed"
 fi
 
 # ---- 4. Install China-optimized skills ----
@@ -169,7 +171,7 @@ SKILLS_CN="$SCRIPT_DIR/skills-cn"
 SKILLS_TARGET="$CORE_DIR/node_modules/openclaw/skills"
 
 if [ -d "$SKILLS_CN" ] && [ -d "$SKILLS_TARGET" ]; then
-    echo -e "  ${CYAN}↓${NC} 安装中国优化技能 (skills-cn)..."
+    echo -e "  ${CYAN}->${NC} Installing bundled skills (skills-cn)..."
     SKILL_COUNT=0
     for skill_dir in "$SKILLS_CN"/*/; do
         skill_name=$(basename "$skill_dir")
@@ -178,22 +180,22 @@ if [ -d "$SKILLS_CN" ] && [ -d "$SKILLS_TARGET" ]; then
             SKILL_COUNT=$((SKILL_COUNT + 1))
         fi
     done
-    echo -e "  ${GREEN}✓${NC} 中国技能安装完成 (+$SKILL_COUNT 个)"
+    echo -e "  ${GREEN}OK${NC} Bundled skills installed (+$SKILL_COUNT)"
 fi
 
 # ---- Done ----
 echo ""
 echo -e "${GREEN}════════════════════════════════════════${NC}"
-echo -e "${GREEN}  ✅ 搭建完成！${NC}"
+echo -e "${GREEN}  Setup complete.${NC}"
 echo ""
-echo -e "  启动方式:"
+echo -e "  Start:"
 echo -e "    Mac:     ${CYAN}bash Mac-Start.command${NC}"
-echo -e "    Windows: 双击 ${CYAN}Windows-Start.bat${NC}"
+echo -e "    Windows: double-click ${CYAN}Windows-Start.bat${NC}"
 echo ""
-echo -e "  目录结构:"
-echo -e "    app/core/       ← OpenClaw + 依赖"
+echo -e "  Layout:"
+echo -e "    app/core/       <- OpenClaw + deps"
 echo -e "    app/runtime/    ← Node.js $NODE_VERSION"
-echo -e "    data/           ← 运行后自动生成"
+echo -e "    data/           <- created on first run"
 echo ""
-echo -e "  ${CYAN}提示: 制作跨平台 U 盘请用 bash setup.sh --all-platforms${NC}"
+echo -e "  ${CYAN}Tip: for a cross-platform USB run bash setup.sh --all-platforms${NC}"
 echo -e "${GREEN}════════════════════════════════════════${NC}"

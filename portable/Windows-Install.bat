@@ -5,58 +5,58 @@ title U-Claw - Install to Windows
 
 echo.
 echo   ========================================
-echo     U-Claw 安装到 Windows
-echo     从 U 盘离线安装
+echo     Install U-Claw on Windows
+echo     Offline install from USB
 echo   ========================================
 echo.
 
 set "UCLAW_DIR=%~dp0"
 set "APP_DIR=%UCLAW_DIR%app"
 set "INSTALL_TARGET=%USERPROFILE%\.uclaw"
-set "MIRROR=https://registry.npmmirror.com"
-set "NODE_MIRROR=https://npmmirror.com/mirrors/node"
+set "MIRROR=https://registry.npmjs.org"
+set "NODE_MIRROR=https://nodejs.org/dist"
 set "NODE_VER=v22.22.3"
 
 REM ---- Step 1: Check environment ----
-echo   [1/4] 检查环境...
+echo   [1/4] Checking environment...
 
 set "USE_NODE=none"
 set "USB_NODE=%APP_DIR%\runtime\node-win-x64\node.exe"
 
 if exist "%USB_NODE%" (
-    for /f "tokens=*" %%v in ('"%USB_NODE%" --version') do echo   Node.js: 使用 U 盘内的 %%v
+    for /f "tokens=*" %%v in ('"%USB_NODE%" --version') do echo   Node.js: using USB copy %%v
     set "USE_NODE=usb"
 ) else (
     where node >nul 2>&1
     if !errorlevel!==0 (
         for /f "tokens=*" %%v in ('node --version') do (
-            echo   Node.js: 检查系统版本 %%v
+            echo   Node.js: checking system %%v
             set "SYS_VER=%%v"
         )
         REM Use only supported LTS majors. Newer Current releases can break native deps.
         for /f "tokens=1 delims=." %%m in ("!SYS_VER:v=!") do set "MAJOR=%%m"
         if !MAJOR! equ 20 (
-            echo   Node.js: 使用系统的 !SYS_VER!
+            echo   Node.js: using system !SYS_VER!
             set "USE_NODE=system"
         ) else if !MAJOR! equ 22 (
-            echo   Node.js: 使用系统的 !SYS_VER!
+            echo   Node.js: using system !SYS_VER!
             set "USE_NODE=system"
         ) else (
-            echo   Node.js: 系统版本不兼容 ^(!SYS_VER!^), 将使用内置 v22 LTS
+            echo   Node.js: system version not supported ^(!SYS_VER!^), will use bundled v22 LTS
             set "USE_NODE=download"
         )
     ) else (
-        echo   Node.js: 未安装
+        echo   Node.js: not installed
         set "USE_NODE=download"
     )
 )
 
 set "USB_OPENCLAW=%APP_DIR%\core\node_modules\openclaw\openclaw.mjs"
 if exist "%USB_OPENCLAW%" (
-    echo   OpenClaw: 使用 U 盘内的
+    echo   OpenClaw: using USB copy
     set "USE_OPENCLAW=usb"
 ) else (
-    echo   OpenClaw: U 盘内未找到，需要在线下载
+    echo   OpenClaw: not on USB, will download
     set "USE_OPENCLAW=download"
 )
 
@@ -64,10 +64,10 @@ echo.
 
 REM ---- Step 2: Check existing ----
 if exist "%INSTALL_TARGET%" (
-    echo   检测到已有安装: %INSTALL_TARGET%
-    set /p OVERWRITE="  覆盖安装？(y/n): "
+    echo   Existing install found: %INSTALL_TARGET%
+    set /p OVERWRITE="  Overwrite? (y/n): "
     if /i not "!OVERWRITE!"=="y" (
-        echo   已取消
+        echo   Cancelled
         pause
         exit /b 0
     )
@@ -75,7 +75,7 @@ if exist "%INSTALL_TARGET%" (
 )
 
 REM ---- Step 3: Create directories ----
-echo   [2/4] 创建安装目录...
+echo   [2/4] Creating install folder...
 mkdir "%INSTALL_TARGET%" 2>nul
 mkdir "%INSTALL_TARGET%\data\.openclaw" 2>nul
 mkdir "%INSTALL_TARGET%\data\memory" 2>nul
@@ -84,20 +84,20 @@ mkdir "%INSTALL_TARGET%\data\logs" 2>nul
 echo.
 
 REM ---- Step 4: Copy/Download Node.js ----
-echo   [3/4] 安装 Node.js...
+echo   [3/4] Installing Node.js...
 
 if "!USE_NODE!"=="usb" (
-    echo   从 U 盘复制 Node.js...
+    echo   Copying Node.js from USB...
     xcopy /s /e /q /y "%APP_DIR%\runtime\node-win-x64" "%INSTALL_TARGET%\runtime\node-win-x64\" >nul
     set "INSTALL_NODE=%INSTALL_TARGET%\runtime\node-win-x64\node.exe"
     set "INSTALL_NPM=%INSTALL_TARGET%\runtime\node-win-x64\npm.cmd"
-    echo   Node.js 安装完成!
+    echo   Node.js installed.
 ) else if "!USE_NODE!"=="system" (
     set "INSTALL_NODE=node"
     set "INSTALL_NPM=npm"
-    echo   使用系统 Node.js
+    echo   Using system Node.js
 ) else (
-    echo   从国内镜像下载 Node.js %NODE_VER%...
+    echo   Downloading Node.js %NODE_VER%...
     set "NODE_ZIP=node-%NODE_VER%-win-x64.zip"
     set "NODE_URL=%NODE_MIRROR%/%NODE_VER%/!NODE_ZIP!"
     echo   URL: !NODE_URL!
@@ -107,12 +107,12 @@ if "!USE_NODE!"=="usb" (
     curl -# -L "!NODE_URL!" -o "%TEMP%\!NODE_ZIP!"
     if !errorlevel! neq 0 (
         echo   [ERROR] 下载失败！请检查网络连接
-        echo   也可以手动下载: !NODE_URL!
+        echo   Or download manually: !NODE_URL!
         pause
         exit /b 1
     )
 
-    echo   解压中...
+    echo   Extracting...
     mkdir "%INSTALL_TARGET%\runtime\node-win-x64" 2>nul
     powershell -command "Expand-Archive -Path '%TEMP%\!NODE_ZIP!' -DestinationPath '%TEMP%\node-extract' -Force"
     xcopy /s /e /q /y "%TEMP%\node-extract\node-%NODE_VER%-win-x64\*" "%INSTALL_TARGET%\runtime\node-win-x64\" >nul
@@ -121,31 +121,31 @@ if "!USE_NODE!"=="usb" (
 
     set "INSTALL_NODE=%INSTALL_TARGET%\runtime\node-win-x64\node.exe"
     set "INSTALL_NPM=%INSTALL_TARGET%\runtime\node-win-x64\npm.cmd"
-    echo   Node.js 下载安装完成!
+    echo   Node.js downloaded.
 )
 echo.
 
 REM ---- Step 5: Copy/Download OpenClaw ----
-echo   [4/4] 安装 OpenClaw...
+echo   [4/4] Installing OpenClaw...
 
 if "!USE_OPENCLAW!"=="usb" (
-    echo   从 U 盘复制 OpenClaw + 插件...
+    echo   Copying OpenClaw + plugins from USB...
     xcopy /s /e /q /y "%APP_DIR%\core" "%INSTALL_TARGET%\core\" >nul
-    echo   OpenClaw 安装完成!
+    echo   OpenClaw installed.
 ) else (
-    echo   从国内镜像下载 OpenClaw...
+    echo   Downloading OpenClaw...
     mkdir "%INSTALL_TARGET%\core" 2>nul
     (echo {"name":"u-claw-core","version":"1.0.0","private":true,"dependencies":{"openclaw":"latest"}})>"%INSTALL_TARGET%\core\package.json"
     cd /d "%INSTALL_TARGET%\core"
     call "!INSTALL_NPM!" install --registry=%MIRROR%
     call "!INSTALL_NPM!" install @sliverp/qqbot@latest --registry=%MIRROR%
-    echo   OpenClaw 下载安装完成!
+    echo   OpenClaw downloaded.
 )
 
 set "QQ_DIR=%INSTALL_TARGET%\core\node_modules\@sliverp\qqbot"
 if exist "!QQ_DIR!" (
     if not exist "!QQ_DIR!\dist\index.js" (
-        echo   编译 QQbot 插件运行文件...
+        echo   Building optional QQ plugin...
         pushd "!QQ_DIR!"
         call "!INSTALL_NPM!" install --include=dev --registry=%MIRROR% >nul 2>&1
         call "!INSTALL_NPM!" run build >nul 2>&1
@@ -154,9 +154,9 @@ if exist "!QQ_DIR!" (
     )
     if exist "!QQ_DIR!\node_modules\openclaw" rmdir /s /q "!QQ_DIR!\node_modules\openclaw" 2>nul
     if exist "!QQ_DIR!\dist\index.js" (
-        echo   QQbot 插件运行文件已就绪!
+        echo   QQ plugin runtime ready.
     ) else (
-        echo   [WARNING] QQbot 插件缺少 dist\index.js
+        echo   [WARNING] QQ plugin missing dist\index.js
     )
 )
 
@@ -221,18 +221,18 @@ echo pause
 
 echo.
 echo   ========================================
-echo     安装成功!
+echo     Install succeeded!
 echo   ========================================
 echo.
-echo   安装位置: %INSTALL_TARGET%
+echo   Location: %INSTALL_TARGET%
 echo.
-for /f "tokens=*" %%s in ('powershell -command "(Get-ChildItem '%INSTALL_TARGET%' -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1MB" 2^>nul') do echo   大小: %%s MB
+for /f "tokens=*" %%s in ('powershell -command "(Get-ChildItem '%INSTALL_TARGET%' -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1MB" 2^>nul') do echo   Size: %%s MB
 echo.
-echo   启动方式:
-echo     双击 %INSTALL_TARGET%\start.bat
+echo   Start:
+echo     Double-click %INSTALL_TARGET%\start.bat
 echo.
-echo   首次使用:
-echo     启动后浏览器自动打开配置页面
-echo     选择 AI 模型 - 填写 API Key - 开始用
+echo   First use:
+echo     After start, the browser opens the config page
+echo     Pick a model - enter API Key - start
 echo.
 pause

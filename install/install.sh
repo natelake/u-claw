@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# U-Claw 一键安装脚本 (Mac/Linux)
+# U-Claw one-line install脚本 (Mac/Linux)
 # 用法: curl -fsSL https://u-claw.org/install.sh | bash
 #       或: bash install.sh
 # ============================================================
@@ -26,8 +26,8 @@ CORE_DIR="$UCLAW_DIR/core"
 DATA_DIR="$UCLAW_DIR/data"
 CONFIG_PATH="$DATA_DIR/.openclaw/openclaw.json"
 NODE_VERSION="v22.22.3"
-MIRROR="https://registry.npmmirror.com"
-NODE_MIRROR="https://npmmirror.com/mirrors/node"
+MIRROR="https://registry.npmjs.org"
+NODE_MIRROR="https://nodejs.org/dist"
 
 # ============================================================
 # Step 1: Banner + 系统检测
@@ -37,8 +37,8 @@ echo ""
 echo -e "${CYAN}${BOLD}"
 cat << 'BANNER'
   ╔══════════════════════════════════════════╗
-  ║  🦞 U-Claw 一键安装                      ║
-  ║  让 AI 助手一行命令装好                    ║
+  ║  🦞 U-Claw one-line install                      ║
+  ║  Install the AI assistant with one command                    ║
   ╚══════════════════════════════════════════╝
 BANNER
 echo -e "${NC}"
@@ -51,46 +51,46 @@ if [ "$OS" = "Darwin" ]; then
     if [ "$ARCH" = "arm64" ]; then
         PLATFORM="darwin-arm64"
         NODE_DIR="node-mac-arm64"
-        echo -e "  系统: ${GREEN}macOS Apple Silicon (M 系列) ✓${NC}"
+        echo -e "  System: ${GREEN}macOS Apple Silicon (M series) ✓${NC}"
     else
         PLATFORM="darwin-x64"
         NODE_DIR="node-mac-x64"
-        echo -e "  系统: ${GREEN}macOS Intel ✓${NC}"
+        echo -e "  System: ${GREEN}macOS Intel ✓${NC}"
     fi
 elif [ "$OS" = "Linux" ]; then
     if [ "$ARCH" = "x86_64" ]; then
         PLATFORM="linux-x64"
         NODE_DIR="node-linux-x64"
-        echo -e "  系统: ${GREEN}Linux x64 ✓${NC}"
+        echo -e "  System: ${GREEN}Linux x64 ✓${NC}"
     elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
         PLATFORM="linux-arm64"
         NODE_DIR="node-linux-arm64"
-        echo -e "  系统: ${GREEN}Linux ARM64 ✓${NC}"
+        echo -e "  System: ${GREEN}Linux ARM64 ✓${NC}"
     else
-        echo -e "  ${RED}不支持的架构: $ARCH${NC}"
+        echo -e "  ${RED}Unsupported architecture: $ARCH${NC}"
         exit 1
     fi
 else
-    echo -e "  ${RED}不支持的系统: $OS${NC}"
-    echo -e "  ${YELLOW}Windows 请使用 PowerShell: irm https://u-claw.org/install.ps1 | iex${NC}"
+    echo -e "  ${RED}Unsupported OS: $OS${NC}"
+    echo -e "  ${YELLOW}On Windows use PowerShell: irm https://u-claw.org/install.ps1 | iex${NC}"
     exit 1
 fi
 
-echo -e "  安装目录: ${CYAN}$UCLAW_DIR${NC}"
+echo -e "  Install dir: ${CYAN}$UCLAW_DIR${NC}"
 echo ""
 
 # 检查已有安装
 if [ -d "$UCLAW_DIR/core/node_modules/openclaw" ]; then
-    echo -e "  ${YELLOW}检测到已有安装: $UCLAW_DIR${NC}"
+    echo -e "  ${YELLOW}Existing install found: $UCLAW_DIR${NC}"
     if [ -t 0 ]; then
-        read -p "  覆盖安装？(y/n) [y]: " -n 1 OVERWRITE
+        read -p "  Overwrite? (y/n) [y]: " -n 1 OVERWRITE
         echo ""
         if [ "$OVERWRITE" = "n" ] || [ "$OVERWRITE" = "N" ]; then
-            echo -e "  ${DIM}已取消${NC}"
+            echo -e "  ${DIM}Cancelled${NC}"
             exit 0
         fi
     else
-        echo -e "  ${CYAN}管道模式，自动覆盖安装${NC}"
+        echo -e "  ${CYAN}Piped install, overwriting${NC}"
     fi
     echo ""
 fi
@@ -101,7 +101,7 @@ mkdir -p "$RUNTIME_DIR" "$CORE_DIR" "$DATA_DIR/.openclaw" "$DATA_DIR/memory" "$D
 # ============================================================
 # Step 2: Node.js v22 安装
 # ============================================================
-echo -e "  ${BOLD}[1/7] 安装 Node.js $NODE_VERSION ...${NC}"
+echo -e "  ${BOLD}[1/7] Installing Node.js $NODE_VERSION ...${NC}"
 
 NODE_INSTALL_DIR="$RUNTIME_DIR/$NODE_DIR"
 INSTALL_NODE=""
@@ -113,7 +113,7 @@ if command -v node >/dev/null 2>&1; then
     SYS_VER=$(node --version)
     MAJOR=$(echo "$SYS_VER" | sed 's/v//' | cut -d. -f1)
     if [ "$MAJOR" -ge 20 ] 2>/dev/null; then
-        echo -e "  ${GREEN}✓${NC} 系统已有 Node.js $SYS_VER，复用"
+        echo -e "  ${GREEN}✓${NC} System already has Node.js $SYS_VER，reusing"
         INSTALL_NODE="$(which node)"
         INSTALL_NPM="$(which npm)"
         USE_SYSTEM_NODE=true
@@ -122,11 +122,11 @@ fi
 
 if [ "$USE_SYSTEM_NODE" = "false" ]; then
     if [ -f "$NODE_INSTALL_DIR/bin/node" ]; then
-        echo -e "  ${GREEN}✓${NC} Node.js 已存在，跳过下载"
+        echo -e "  ${GREEN}✓${NC} Node.js already present, skipping"
         INSTALL_NODE="$NODE_INSTALL_DIR/bin/node"
         INSTALL_NPM="$NODE_INSTALL_DIR/bin/npm-cli.js"
     else
-        echo -e "  ${CYAN}↓${NC} 从国内镜像下载 Node.js $NODE_VERSION ($PLATFORM)..."
+        echo -e "  ${CYAN}↓${NC} Downloading Node.js $NODE_VERSION ($PLATFORM)..."
         TARBALL="node-${NODE_VERSION}-${PLATFORM}.tar.gz"
         URL="${NODE_MIRROR}/${NODE_VERSION}/${TARBALL}"
 
@@ -136,7 +136,7 @@ if [ "$USE_SYSTEM_NODE" = "false" ]; then
         elif command -v wget >/dev/null 2>&1; then
             wget -q --show-progress "$URL" -O "/tmp/$TARBALL"
         else
-            echo -e "  ${RED}✗ 未找到 curl 或 wget，请先安装${NC}"
+            echo -e "  ${RED}✗ Need curl or wget${NC}"
             exit 1
         fi
 
@@ -145,11 +145,11 @@ if [ "$USE_SYSTEM_NODE" = "false" ]; then
         chmod +x "$NODE_INSTALL_DIR/bin/node"
 
         if [ -f "$NODE_INSTALL_DIR/bin/node" ]; then
-            echo -e "  ${GREEN}✓${NC} Node.js 安装完成"
+            echo -e "  ${GREEN}✓${NC} Node.js installed"
             INSTALL_NODE="$NODE_INSTALL_DIR/bin/node"
             INSTALL_NPM="$NODE_INSTALL_DIR/lib/node_modules/npm/bin/npm-cli.js"
         else
-            echo -e "  ${RED}✗ Node.js 下载失败${NC}"
+            echo -e "  ${RED}✗ Node.js download failed${NC}"
             exit 1
         fi
     fi
@@ -170,10 +170,10 @@ echo ""
 # ============================================================
 # Step 3: OpenClaw 安装
 # ============================================================
-echo -e "  ${BOLD}[2/7] 安装 OpenClaw ...${NC}"
+echo -e "  ${BOLD}[2/7] Installing OpenClaw ...${NC}"
 
 if [ -d "$CORE_DIR/node_modules/openclaw" ]; then
-    echo -e "  ${GREEN}✓${NC} OpenClaw 已安装，跳过"
+    echo -e "  ${GREEN}✓${NC} OpenClaw already installed, skipping"
 else
     if [ ! -f "$CORE_DIR/package.json" ]; then
         OPENCLAW_VERSION="2026.4.29"
@@ -189,14 +189,14 @@ else
 PKGJSON
     fi
 
-    echo -e "  ${CYAN}↓${NC} 从国内镜像安装..."
+    echo -e "  ${CYAN}↓${NC} Installing from the public registry..."
     NPM_LOG=$(mktemp /tmp/uclaw-npm.XXXXXX.log)
     if run_npm install --prefix "$CORE_DIR" --registry="$MIRROR" >"$NPM_LOG" 2>&1; then
         tail -5 "$NPM_LOG"
         rm -f "$NPM_LOG"
-        echo -e "  ${GREEN}✓${NC} OpenClaw 安装完成"
+        echo -e "  ${GREEN}✓${NC} OpenClaw installed"
     else
-        echo -e "  ${RED}✗ OpenClaw 安装失败,完整日志见 $NPM_LOG${NC}"
+        echo -e "  ${RED}✗ OpenClaw install failed. Full log: $NPM_LOG${NC}"
         tail -20 "$NPM_LOG"
         exit 1
     fi
@@ -205,19 +205,19 @@ fi
 echo ""
 
 # ============================================================
-# Step 4: QQ 插件（非致命）
+# Step 4: QQ plugin（非致命）
 # ============================================================
-echo -e "  ${BOLD}[3/7] 安装 QQ 插件 ...${NC}"
+echo -e "  ${BOLD}[3/7] Optional QQ plugin ...${NC}"
 
 if [ -d "$CORE_DIR/node_modules/@sliverp/qqbot" ]; then
-    echo -e "  ${GREEN}✓${NC} QQ 插件已安装，跳过"
+    echo -e "  ${GREEN}✓${NC} QQ plugin already installed, skipping"
 else
-    echo -e "  ${CYAN}↓${NC} 安装 QQ 插件..."
+    echo -e "  ${CYAN}↓${NC} Installing optional QQ plugin..."
     run_npm install @sliverp/qqbot@latest --prefix "$CORE_DIR" --registry="$MIRROR" 2>/dev/null || {
-        echo -e "  ${YELLOW}⚠${NC}  QQ 插件安装失败（不影响主功能）"
+        echo -e "  ${YELLOW}⚠${NC}  QQ plugin install failed (main features still work)"
     }
     if [ -d "$CORE_DIR/node_modules/@sliverp/qqbot" ]; then
-        echo -e "  ${GREEN}✓${NC} QQ 插件安装完成"
+        echo -e "  ${GREEN}✓${NC} QQ plugin installed"
     fi
 fi
 
@@ -226,7 +226,7 @@ echo ""
 # ============================================================
 # Step 5: 写入 10 个中国技能
 # ============================================================
-echo -e "  ${BOLD}[4/7] 安装中国本地化技能 (10个) ...${NC}"
+echo -e "  ${BOLD}[4/7] Installing optional China-locale skills (10) ...${NC}"
 
 SKILLS_TARGET="$CORE_DIR/node_modules/openclaw/skills"
 if [ ! -d "$SKILLS_TARGET" ]; then
@@ -760,39 +760,39 @@ SKILLEOF
 SKILL_COUNT=$((SKILL_COUNT + 1))
 fi
 
-echo -e "  ${GREEN}✓${NC} 中国技能安装完成 (+${SKILL_COUNT} 个)"
+echo -e "  ${GREEN}✓${NC} China-locale skills installed (+${SKILL_COUNT})"
 echo ""
 
 # ============================================================
 # Step 6: 交互式模型配置
 # ============================================================
-echo -e "  ${BOLD}[5/7] 配置 AI 模型 ...${NC}"
+echo -e "  ${BOLD}[5/7] Configure AI model ...${NC}"
 echo ""
 
 # 如果已有配置且包含 apiKey，跳过
 if [ -f "$CONFIG_PATH" ] && grep -q '"apiKey"' "$CONFIG_PATH" 2>/dev/null; then
-    echo -e "  ${GREEN}✓${NC} 已有模型配置，跳过"
+    echo -e "  ${GREEN}✓${NC} Model already configured, skipping"
 else
     # 检测是否可交互
     if [ -t 0 ]; then
-        echo -e "  请选择 AI 模型:"
+        echo -e "  Pick an AI model:"
         echo ""
-        echo -e "  ${BOLD}── 国内推荐（无需翻墙）──${NC}"
-        echo -e "  ${GREEN}1)${NC} DeepSeek      ⭐ 推荐，性价比最高"
-        echo -e "  ${NC}2)${NC} Kimi/月之暗面"
-        echo -e "  ${NC}3)${NC} 通义千问/阿里"
-        echo -e "  ${NC}4)${NC} 智谱GLM"
+        echo -e "  ${BOLD}── Popular in China (no extra proxy) ──${NC}"
+        echo -e "  ${GREEN}1)${NC} DeepSeek      ⭐ recommended, inexpensive"
+        echo -e "  ${NC}2)${NC} Kimi / Moonshot"
+        echo -e "  ${NC}3)${NC} Qwen / Alibaba"
+        echo -e "  ${NC}4)${NC} Zhipu GLM"
         echo -e "  ${NC}5)${NC} MiniMax"
-        echo -e "  ${NC}6)${NC} 豆包/火山引擎"
-        echo -e "  ${NC}7)${NC} 硅基流动"
+        echo -e "  ${NC}6)${NC} Doubao / Volcengine"
+        echo -e "  ${NC}7)${NC} SiliconFlow"
         echo ""
-        echo -e "  ${BOLD}── 海外模型 ──${NC}"
+        echo -e "  ${BOLD}── International ──${NC}"
         echo -e "  ${NC}8)${NC} Claude    ${NC}9)${NC} GPT"
         echo ""
-        echo -e "  ${BOLD}── 本地 ──${NC}"
-        echo -e "  ${NC}10)${NC} Ollama 本地模型"
+        echo -e "  ${BOLD}── Local ──${NC}"
+        echo -e "  ${NC}10)${NC} Ollama local model"
         echo ""
-        read -p "  请输入编号 [1]: " MODEL_CHOICE
+        read -p "  Number [1]: " MODEL_CHOICE
         MODEL_CHOICE=${MODEL_CHOICE:-1}
 
         # 模型配置映射
@@ -802,7 +802,7 @@ else
                 BASE_URL="https://api.deepseek.com/v1"
                 PROVIDER="custom"
                 KEY_LABEL="DeepSeek API Key"
-                KEY_HINT="获取地址: https://platform.deepseek.com/api_keys"
+                KEY_HINT="Get a key: https://platform.deepseek.com/api_keys"
                 NEED_KEY=true
                 ;;
             2)
@@ -810,23 +810,23 @@ else
                 BASE_URL="https://api.moonshot.cn/v1"
                 PROVIDER="custom"
                 KEY_LABEL="Moonshot API Key"
-                KEY_HINT="获取地址: https://platform.moonshot.cn/console/api-keys"
+                KEY_HINT="Get a key: https://platform.moonshot.cn/console/api-keys"
                 NEED_KEY=true
                 ;;
             3)
                 MODEL_NAME="qwen-plus"
                 BASE_URL="https://dashscope.aliyuncs.com/compatible-mode/v1"
                 PROVIDER="custom"
-                KEY_LABEL="通义千问 API Key"
-                KEY_HINT="获取地址: https://dashscope.console.aliyun.com/apiKey（有免费额度）"
+                KEY_LABEL="Qwen API Key"
+                KEY_HINT="Get a key: https://dashscope.console.aliyun.com/apiKey (free tier)"
                 NEED_KEY=true
                 ;;
             4)
                 MODEL_NAME="glm-5"
                 BASE_URL="https://open.bigmodel.cn/api/paas/v4"
                 PROVIDER="custom"
-                KEY_LABEL="智谱 API Key"
-                KEY_HINT="获取地址: https://open.bigmodel.cn/usercenter/apikeys"
+                KEY_LABEL="Zhipu API Key"
+                KEY_HINT="Get a key: https://open.bigmodel.cn/usercenter/apikeys"
                 NEED_KEY=true
                 ;;
             5)
@@ -834,23 +834,23 @@ else
                 BASE_URL="https://api.minimaxi.com/v1"
                 PROVIDER="custom"
                 KEY_LABEL="MiniMax API Key"
-                KEY_HINT="获取地址: https://platform.minimaxi.com/"
+                KEY_HINT="Get a key: https://platform.minimaxi.com/"
                 NEED_KEY=true
                 ;;
             6)
                 MODEL_NAME="doubao-seed-1-6-250615"
                 BASE_URL="https://ark.cn-beijing.volces.com/api/v3"
                 PROVIDER="custom"
-                KEY_LABEL="火山引擎 API Key"
-                KEY_HINT="获取地址: https://console.volcengine.com/ark"
+                KEY_LABEL="Volcengine API Key"
+                KEY_HINT="Get a key: https://console.volcengine.com/ark"
                 NEED_KEY=true
                 ;;
             7)
                 MODEL_NAME="deepseek-ai/DeepSeek-V3"
                 BASE_URL="https://api.siliconflow.cn/v1"
                 PROVIDER="custom"
-                KEY_LABEL="硅基流动 API Key"
-                KEY_HINT="获取地址: https://cloud.siliconflow.cn/account/ak"
+                KEY_LABEL="SiliconFlow API Key"
+                KEY_HINT="Get a key: https://cloud.siliconflow.cn/account/ak"
                 NEED_KEY=true
                 ;;
             8)
@@ -858,7 +858,7 @@ else
                 BASE_URL=""
                 PROVIDER="anthropic"
                 KEY_LABEL="Anthropic API Key"
-                KEY_HINT="获取地址: https://console.anthropic.com/settings/keys（需翻墙）"
+                KEY_HINT="Get a key: https://console.anthropic.com/settings/keys (may need a VPN depending on your region)"
                 NEED_KEY=true
                 ;;
             9)
@@ -866,7 +866,7 @@ else
                 BASE_URL=""
                 PROVIDER="openai"
                 KEY_LABEL="OpenAI API Key"
-                KEY_HINT="获取地址: https://platform.openai.com/api-keys（需翻墙）"
+                KEY_HINT="Get a key: https://platform.openai.com/api-keys (may need a VPN depending on your region)"
                 NEED_KEY=true
                 ;;
             10)
@@ -874,16 +874,16 @@ else
                 BASE_URL="http://127.0.0.1:11434/v1"
                 PROVIDER="custom"
                 KEY_LABEL=""
-                KEY_HINT="先安装 Ollama (https://ollama.com)，然后运行: ollama run llama3.2"
+                KEY_HINT="Install Ollama (https://ollama.com), then run: ollama run llama3.2"
                 NEED_KEY=false
                 ;;
             *)
-                echo -e "  ${YELLOW}未知选项，使用默认 DeepSeek${NC}"
+                echo -e "  ${YELLOW}Unknown choice, defaulting to DeepSeek${NC}"
                 MODEL_NAME="deepseek-v4-flash"
                 BASE_URL="https://api.deepseek.com/v1"
                 PROVIDER="custom"
                 KEY_LABEL="DeepSeek API Key"
-                KEY_HINT="获取地址: https://platform.deepseek.com/api_keys"
+                KEY_HINT="Get a key: https://platform.deepseek.com/api_keys"
                 NEED_KEY=true
                 ;;
         esac
@@ -895,9 +895,9 @@ else
         if [ "$NEED_KEY" = "true" ]; then
             echo -e "  ${CYAN}$KEY_HINT${NC}"
             echo ""
-            read -p "  请输入 $KEY_LABEL: " API_KEY
+            read -p "  Enter $KEY_LABEL: " API_KEY
             if [ -z "$API_KEY" ]; then
-                echo -e "  ${YELLOW}⚠ 未输入 API Key，稍后可通过 Config.html 配置${NC}"
+                echo -e "  ${YELLOW}No API Key entered. You can set one later in Config.html${NC}"
             fi
         else
             echo -e "  ${CYAN}$KEY_HINT${NC}"
@@ -908,7 +908,7 @@ else
         API_KEY_JSON=${API_KEY//\\/\\\\}
         API_KEY_JSON=${API_KEY_JSON//\"/\\\"}
 
-        # 写配置文件
+        # 写Config file
         if [ "$PROVIDER" = "custom" ] && [ -n "$BASE_URL" ]; then
             cat > "$CONFIG_PATH" << CFGEOF
 {
@@ -972,11 +972,11 @@ CFGEOF
 CFGEOF
         fi
 
-        echo -e "  ${GREEN}✓${NC} 模型配置完成: $MODEL_NAME"
+        echo -e "  ${GREEN}✓${NC} Model configured: $MODEL_NAME"
     else
         # 非交互模式，写默认配置
-        echo -e "  ${YELLOW}⚠${NC}  管道模式，跳过模型选择"
-        echo -e "  ${DIM}启动后用 Config.html 配置模型${NC}"
+        echo -e "  ${YELLOW}⚠${NC}  Piped install, skipping model picker"
+        echo -e "  ${DIM}After start, use Config.html to set a model${NC}"
         if [ ! -f "$CONFIG_PATH" ]; then
             cat > "$CONFIG_PATH" << 'CFGEOF'
 {
@@ -995,7 +995,7 @@ echo ""
 # ============================================================
 # Step 7: 生成启动脚本 + 验证 + 摘要
 # ============================================================
-echo -e "  ${BOLD}[6/7] 生成启动脚本 ...${NC}"
+echo -e "  ${BOLD}[6/7] Writing start scripts ...${NC}"
 
 # Mac 启动脚本
 cat > "$UCLAW_DIR/start.command" << 'STARTEOF'
@@ -1012,13 +1012,13 @@ fi
 [ ! -f "$NODE_BIN" ] && NODE_BIN="$(which node 2>/dev/null)"
 
 if [ -z "$NODE_BIN" ] || [ ! -f "$NODE_BIN" ]; then
-    echo "错误: 未找到 Node.js"
+    echo "Error: Node.js not found"
     exit 1
 fi
 
 OPENCLAW_MJS="$DIR/core/node_modules/openclaw/openclaw.mjs"
 if [ ! -f "$OPENCLAW_MJS" ]; then
-    echo "错误: 未找到 OpenClaw"
+    echo "Error: OpenClaw not found"
     exit 1
 fi
 
@@ -1030,7 +1030,7 @@ export OPENCLAW_CONFIG_PATH="$DIR/data/.openclaw/openclaw.json"
 PORT=18789
 while lsof -i :$PORT >/dev/null 2>&1; do
     PORT=$((PORT + 1))
-    [ $PORT -gt 18799 ] && echo "没有可用端口 (18789-18799)" && exit 1
+    [ $PORT -gt 18799 ] && echo "No free port in 18789-18799" && exit 1
 done
 
 cd "$DIR/core"
@@ -1047,8 +1047,8 @@ for i in $(seq 1 30); do
 done
 
 echo ""
-echo "  🦞 U-Claw 正在运行: http://127.0.0.1:$PORT/#token=uclaw"
-echo "  按 Ctrl+C 停止"
+echo "  🦞 U-Claw is running: http://127.0.0.1:$PORT/#token=uclaw"
+echo "  Press Ctrl+C to stop"
 echo ""
 
 wait $PID
@@ -1078,7 +1078,7 @@ export OPENCLAW_CONFIG_PATH="$DIR/data/.openclaw/openclaw.json"
 PORT=18789
 while ss -tln | grep -q ":$PORT "; do
     PORT=$((PORT + 1))
-    [ $PORT -gt 18799 ] && echo "没有可用端口" && exit 1
+    [ $PORT -gt 18799 ] && echo "No free port" && exit 1
 done
 
 cd "$DIR/core"
@@ -1087,8 +1087,8 @@ PID=$!
 
 sleep 2
 echo ""
-echo "  🦞 U-Claw 正在运行: http://127.0.0.1:$PORT/#token=uclaw"
-echo "  按 Ctrl+C 停止"
+echo "  🦞 U-Claw is running: http://127.0.0.1:$PORT/#token=uclaw"
+echo "  Press Ctrl+C to stop"
 echo ""
 
 xdg-open "http://127.0.0.1:$PORT/#token=uclaw" 2>/dev/null || true
@@ -1097,13 +1097,13 @@ STARTEOF
 chmod +x "$UCLAW_DIR/start.sh"
 fi
 
-echo -e "  ${GREEN}✓${NC} 启动脚本已生成"
+echo -e "  ${GREEN}✓${NC} Start scripts written"
 echo ""
 
 # ============================================================
 # 验证
 # ============================================================
-echo -e "  ${BOLD}[7/7] 验证安装 ...${NC}"
+echo -e "  ${BOLD}[7/7] Verifying install ...${NC}"
 echo ""
 
 # Node.js
@@ -1116,27 +1116,27 @@ fi
 
 # OpenClaw
 if [ -f "$CORE_DIR/node_modules/openclaw/openclaw.mjs" ]; then
-    echo -e "  ${GREEN}[✓]${NC} OpenClaw 已安装"
+    echo -e "  ${GREEN}[✓]${NC} OpenClaw installed"
 else
     echo -e "  ${RED}[✗]${NC} OpenClaw"
 fi
 
-# QQ 插件
+# QQ plugin
 if [ -d "$CORE_DIR/node_modules/@sliverp/qqbot" ]; then
-    echo -e "  ${GREEN}[✓]${NC} QQ 插件"
+    echo -e "  ${GREEN}[✓]${NC} QQ plugin"
 else
-    echo -e "  ${YELLOW}[⚠]${NC} QQ 插件（未安装，不影响主功能）"
+    echo -e "  ${YELLOW}[⚠]${NC} QQ plugin (not installed; main features still work)"
 fi
 
 # 技能
 INSTALLED_SKILLS=$(ls -d "$SKILLS_TARGET"/*/ 2>/dev/null | wc -l | tr -d ' ')
-echo -e "  ${GREEN}[✓]${NC} 中国技能 (${INSTALLED_SKILLS}个)"
+echo -e "  ${GREEN}[✓]${NC} China-locale skills (${INSTALLED_SKILLS})"
 
-# 配置文件
+# Config file
 if [ -f "$CONFIG_PATH" ]; then
-    echo -e "  ${GREEN}[✓]${NC} 配置文件"
+    echo -e "  ${GREEN}[✓]${NC} Config file"
 else
-    echo -e "  ${YELLOW}[⚠]${NC} 配置文件（需启动后配置）"
+    echo -e "  ${YELLOW}[⚠]${NC} Config (set after start)"
 fi
 
 echo ""
@@ -1148,23 +1148,23 @@ INSTALL_SIZE=$(du -sh "$UCLAW_DIR" 2>/dev/null | cut -f1)
 
 echo -e "${GREEN}${BOLD}"
 echo "  ╔══════════════════════════════════════════╗"
-echo "  ║   ✅ U-Claw 安装成功！                    ║"
+echo "  ║   ✅ U-Claw installed.                    ║"
 echo "  ╚══════════════════════════════════════════╝"
 echo -e "${NC}"
-echo -e "  ${BOLD}安装位置:${NC} $UCLAW_DIR"
-echo -e "  ${BOLD}大小:${NC}     $INSTALL_SIZE"
+echo -e "  ${BOLD}Location:${NC} $UCLAW_DIR"
+echo -e "  ${BOLD}Size:${NC}     $INSTALL_SIZE"
 echo ""
-echo -e "  ${BOLD}启动方式:${NC}"
+echo -e "  ${BOLD}Start:${NC}"
 if [ "$OS" = "Darwin" ]; then
-    echo -e "    双击 ${CYAN}~/.uclaw/start.command${NC}"
-    echo -e "    或终端: ${CYAN}bash ~/.uclaw/start.command${NC}"
+    echo -e "    Double-click ${CYAN}~/.uclaw/start.command${NC}"
+    echo -e "    or run: ${CYAN}bash ~/.uclaw/start.command${NC}"
 else
-    echo -e "    终端: ${CYAN}bash ~/.uclaw/start.sh${NC}"
+    echo -e "    Run: ${CYAN}bash ~/.uclaw/start.sh${NC}"
 fi
 echo ""
-echo -e "  ${BOLD}打开后:${NC}"
-echo -e "    浏览器自动打开 → 开始和 AI 对话"
+echo -e "  ${BOLD}After start:${NC}"
+echo -e "    Browser opens so you can chat"
 echo ""
-echo -e "  ${DIM}如需重新配置模型，编辑 ~/.uclaw/data/.openclaw/openclaw.json${NC}"
-echo -e "  ${DIM}卸载: rm -rf ~/.uclaw${NC}"
+echo -e "  ${DIM}To reconfigure a model, edit ~/.uclaw/data/.openclaw/openclaw.json${NC}"
+echo -e "  ${DIM}Uninstall: rm -rf ~/.uclaw${NC}"
 echo ""
