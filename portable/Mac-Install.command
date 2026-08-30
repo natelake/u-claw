@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
-# U-Claw - Install to Mac (从 U 盘安装到电脑)
-# 优先使用 U 盘内的离线资源，缺失时从国内镜像下载
+# U-Claw - Install to Mac (copy from USB to this computer)
+# Prefer files already on the USB; download only if missing
 # ============================================================
 
 set -e
@@ -19,15 +19,17 @@ BOLD='\033[1m'
 DIM='\033[2m'
 
 NODE_VER="v22.22.3"
-MIRROR="https://registry.npmmirror.com"
-NODE_MIRROR="https://npmmirror.com/mirrors/node"
+MIRROR="https://registry.npmjs.org"
+# China fallback: MIRROR="https://registry.npmmirror.com"
+NODE_MIRROR="https://nodejs.org/dist"
+# China fallback: NODE_MIRROR="https://npmmirror.com/mirrors/node"
 
 clear
 echo ""
 echo -e "${CYAN}${BOLD}"
 echo "  ╔══════════════════════════════════════╗"
-echo "  ║   U-Claw 安装到 Mac                  ║"
-echo "  ║   从 U 盘离线安装                     ║"
+echo "  ║   Install U-Claw on Mac                  ║"
+echo "  ║   Offline install from USB                     ║"
 echo "  ╚══════════════════════════════════════╝"
 echo -e "${NC}"
 echo ""
@@ -35,7 +37,7 @@ echo ""
 # ---- Check CPU ----
 ARCH=$(uname -m)
 if [ "$ARCH" = "arm64" ]; then
-    echo -e "  ${GREEN}Apple Silicon (M 系列) ✓${NC}"
+    echo -e "  ${GREEN}Apple Silicon (M series) OK${NC}"
     NODE_PLATFORM="node-mac-arm64"
 else
     echo -e "  ${YELLOW}Intel Mac${NC}"
@@ -45,18 +47,18 @@ echo ""
 
 # ---- Check existing installation ----
 if [ -d "$INSTALL_TARGET" ]; then
-    echo -e "  ${YELLOW}检测到已有安装: $INSTALL_TARGET${NC}"
-    read -p "  覆盖安装？(y/n): " -n 1 OVERWRITE
+    echo -e "  ${YELLOW}Existing install found: $INSTALL_TARGET${NC}"
+    read -p "  Overwrite? (y/n): " -n 1 OVERWRITE
     echo ""
     if [ "$OVERWRITE" != "y" ] && [ "$OVERWRITE" != "Y" ]; then
-        echo -e "  ${DIM}已取消${NC}"
+        echo -e "  ${DIM}Cancelled${NC}"
         exit 0
     fi
     echo ""
 fi
 
 # ---- Step 1: Check environment ----
-echo -e "  ${BOLD}[1/4] 检查环境...${NC}"
+echo -e "  ${BOLD}[1/4] Checking environment...${NC}"
 
 NEED_DOWNLOAD_NODE=false
 NEED_DOWNLOAD_OPENCLAW=false
@@ -66,21 +68,21 @@ USB_NODE="$APP_DIR/runtime/$NODE_PLATFORM/bin/node"
 USB_NPM="$APP_DIR/runtime/$NODE_PLATFORM/bin/npm"
 
 if [ -f "$USB_NODE" ]; then
-    echo -e "  ${GREEN}Node.js: 使用 U 盘内的 ($("$USB_NODE" --version))${NC}"
+    echo -e "  ${GREEN}Node.js: using USB copy ($("$USB_NODE" --version))${NC}"
     USE_NODE="usb"
 elif command -v node >/dev/null 2>&1; then
     SYS_VER=$(node --version)
     MAJOR=$(echo "$SYS_VER" | sed 's/v//' | cut -d. -f1)
     if [ "$MAJOR" -ge 20 ] 2>/dev/null; then
-        echo -e "  ${GREEN}Node.js: 使用系统的 ($SYS_VER)${NC}"
+        echo -e "  ${GREEN}Node.js: using system ($SYS_VER)${NC}"
         USE_NODE="system"
     else
-        echo -e "  ${YELLOW}Node.js: 系统版本太低 ($SYS_VER)，需要 v20+${NC}"
+        echo -e "  ${YELLOW}Node.js: system version too old ($SYS_VER), need v20+${NC}"
         NEED_DOWNLOAD_NODE=true
         USE_NODE="download"
     fi
 else
-    echo -e "  ${YELLOW}Node.js: 未安装${NC}"
+    echo -e "  ${YELLOW}Node.js: not installed${NC}"
     NEED_DOWNLOAD_NODE=true
     USE_NODE="download"
 fi
@@ -88,10 +90,10 @@ fi
 # Check OpenClaw
 USB_OPENCLAW="$APP_DIR/core/node_modules/openclaw/openclaw.mjs"
 if [ -f "$USB_OPENCLAW" ]; then
-    echo -e "  ${GREEN}OpenClaw: 使用 U 盘内的${NC}"
+    echo -e "  ${GREEN}OpenClaw: using USB copy${NC}"
     USE_OPENCLAW="usb"
 else
-    echo -e "  ${YELLOW}OpenClaw: U 盘内未找到，需要在线下载${NC}"
+    echo -e "  ${YELLOW}OpenClaw: not on USB, will download${NC}"
     NEED_DOWNLOAD_OPENCLAW=true
     USE_OPENCLAW="download"
 fi
@@ -99,7 +101,7 @@ fi
 echo ""
 
 # ---- Step 2: Create install directory ----
-echo -e "  ${BOLD}[2/4] 安装到 $INSTALL_TARGET ...${NC}"
+echo -e "  ${BOLD}[2/4] Installing to $INSTALL_TARGET ...${NC}"
 
 mkdir -p "$INSTALL_TARGET"
 mkdir -p "$INSTALL_TARGET/data/.openclaw"
@@ -107,27 +109,27 @@ mkdir -p "$INSTALL_TARGET/data/memory"
 mkdir -p "$INSTALL_TARGET/data/backups"
 
 # ---- Step 3: Copy/Download Node.js ----
-echo -e "  ${BOLD}[3/4] 安装 Node.js...${NC}"
+echo -e "  ${BOLD}[3/4] Installing Node.js...${NC}"
 
 NODE_INSTALL_DIR="$INSTALL_TARGET/runtime/$NODE_PLATFORM"
 
 case $USE_NODE in
     usb)
-        echo -e "  ${CYAN}从 U 盘复制 Node.js...${NC}"
+        echo -e "  ${CYAN}Copying Node.js from USB...${NC}"
         mkdir -p "$NODE_INSTALL_DIR"
         cp -R "$APP_DIR/runtime/$NODE_PLATFORM/"* "$NODE_INSTALL_DIR/"
         chmod +x "$NODE_INSTALL_DIR/bin/node"
         INSTALL_NODE="$NODE_INSTALL_DIR/bin/node"
         INSTALL_NPM="$NODE_INSTALL_DIR/bin/npm"
-        echo -e "  ${GREEN}Node.js 安装完成 ✓${NC}"
+        echo -e "  ${GREEN}Node.js installed OK${NC}"
         ;;
     system)
         INSTALL_NODE="$(which node)"
         INSTALL_NPM="$(which npm)"
-        echo -e "  ${GREEN}使用系统 Node.js ✓${NC}"
+        echo -e "  ${GREEN}Using system Node.js OK${NC}"
         ;;
     download)
-        echo -e "  ${CYAN}从国内镜像下载 Node.js $NODE_VER...${NC}"
+        echo -e "  ${CYAN}Downloading Node.js $NODE_VER...${NC}"
         PLATFORM_NAME="darwin-$ARCH"
         TARBALL="node-${NODE_VER}-${PLATFORM_NAME}.tar.gz"
         URL="${NODE_MIRROR}/${NODE_VER}/${TARBALL}"
@@ -139,26 +141,26 @@ case $USE_NODE in
         chmod +x "$NODE_INSTALL_DIR/bin/node"
         INSTALL_NODE="$NODE_INSTALL_DIR/bin/node"
         INSTALL_NPM="$NODE_INSTALL_DIR/bin/npm"
-        echo -e "  ${GREEN}Node.js 下载安装完成 ✓${NC}"
+        echo -e "  ${GREEN}Node.js downloaded OK${NC}"
         ;;
 esac
 
 echo ""
 
 # ---- Step 4: Copy/Download OpenClaw ----
-echo -e "  ${BOLD}[4/4] 安装 OpenClaw...${NC}"
+echo -e "  ${BOLD}[4/4] Installing OpenClaw...${NC}"
 
 CORE_INSTALL_DIR="$INSTALL_TARGET/core"
 
 case $USE_OPENCLAW in
     usb)
-        echo -e "  ${CYAN}从 U 盘复制 OpenClaw + 插件...${NC}"
+        echo -e "  ${CYAN}Copying OpenClaw + plugins from USB...${NC}"
         mkdir -p "$CORE_INSTALL_DIR"
         cp -R "$APP_DIR/core/"* "$CORE_INSTALL_DIR/"
-        echo -e "  ${GREEN}OpenClaw 安装完成 ✓${NC}"
+        echo -e "  ${GREEN}OpenClaw installed OK${NC}"
         ;;
     download)
-        echo -e "  ${CYAN}从国内镜像下载 OpenClaw...${NC}"
+        echo -e "  ${CYAN}Downloading OpenClaw...${NC}"
         mkdir -p "$CORE_INSTALL_DIR"
         cat > "$CORE_INSTALL_DIR/package.json" << 'PKGEOF'
 {
@@ -173,7 +175,7 @@ PKGEOF
         cd "$CORE_INSTALL_DIR"
         "$INSTALL_NODE" "$INSTALL_NPM" install --registry="$MIRROR" 2>&1 | tail -3
         "$INSTALL_NODE" "$INSTALL_NPM" install @sliverp/qqbot@latest --registry="$MIRROR" 2>&1 | tail -2
-        echo -e "  ${GREEN}OpenClaw 下载安装完成 ✓${NC}"
+        echo -e "  ${GREEN}OpenClaw downloaded OK${NC}"
         ;;
 esac
 
@@ -259,18 +261,18 @@ echo ""
 INSTALL_SIZE=$(du -sh "$INSTALL_TARGET" | cut -f1)
 
 echo -e "  ${GREEN}${BOLD}╔══════════════════════════════════════╗"
-echo -e "  ║   ✅ 安装成功！                       ║"
+echo -e "  ║   Install succeeded                          ║"
 echo -e "  ╚══════════════════════════════════════╝${NC}"
 echo ""
-echo -e "  ${BOLD}安装位置:${NC} $INSTALL_TARGET"
-echo -e "  ${BOLD}大小:${NC}     $INSTALL_SIZE"
+echo -e "  ${BOLD}Location:${NC} $INSTALL_TARGET"
+echo -e "  ${BOLD}Size:${NC}     $INSTALL_SIZE"
 echo ""
-echo -e "  ${BOLD}启动方式:${NC}"
-echo -e "    双击 ${CYAN}$INSTALL_TARGET/start.command${NC}"
-echo -e "    或终端运行: ${CYAN}bash ~/.uclaw/start.command${NC}"
+echo -e "  ${BOLD}Start:${NC}"
+echo -e "    Double-click ${CYAN}$INSTALL_TARGET/start.command${NC}"
+echo -e "    Or run: ${CYAN}bash ~/.uclaw/start.command${NC}"
 echo ""
-echo -e "  ${BOLD}首次使用:${NC}"
-echo -e "    启动后浏览器自动打开配置页面"
-echo -e "    选择 AI 模型 → 填写 API Key → 开始用"
+echo -e "  ${BOLD}First use:${NC}"
+echo -e "    After start, the browser opens the config page"
+echo -e "    Pick a model -> enter API Key -> start"
 echo ""
-read -p "  按回车关闭..."
+read -p "  Press Enter to close..."

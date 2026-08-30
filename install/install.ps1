@@ -23,8 +23,8 @@ $CORE_DIR = "$UCLAW_DIR\core"
 $DATA_DIR = "$UCLAW_DIR\data"
 $CONFIG_PATH = "$DATA_DIR\.openclaw\openclaw.json"
 $NODE_VERSION = "v22.22.3"
-$MIRROR = "https://registry.npmmirror.com"
-$NODE_MIRROR = "https://npmmirror.com/mirrors/node"
+$MIRROR = "https://registry.npmjs.org"
+$NODE_MIRROR = "https://nodejs.org/dist"
 
 # ---- Color helpers ----
 function Write-Green($msg) { Write-Host $msg -ForegroundColor Green }

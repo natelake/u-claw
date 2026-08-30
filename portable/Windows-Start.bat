@@ -142,7 +142,7 @@ if not exist "%CORE_DIR%\node_modules" (
     cd /d "%CORE_DIR%"
     REM Keep npm cache inside the portable app instead of system APPDATA.
     set "npm_config_cache=%APP_DIR%\.npm-cache"
-    call "%NPM_BIN%" install --registry=https://registry.npmmirror.com --ignore-scripts --no-audit --no-fund --omit=dev
+    call "%NPM_BIN%" install --registry=https://registry.npmjs.org --ignore-scripts --no-audit --no-fund --omit=dev
     echo.
     echo   Dependencies installed!
     echo.

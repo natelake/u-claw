@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
-# U-Claw - 内网体检 / Intranet Check (macOS)
-# 双击运行：代理env + 直连可达 + 真发一条对话
+# U-Claw - Intranet Check (macOS)
+# Double-click: proxy env + direct reachability + one real chat
 # ============================================================
 
 UCLAW_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -14,20 +14,20 @@ case "$ARCH" in
     x86_64) NODE_BIN="$APP_DIR/runtime/node-mac-x64/bin/node" ;;
     *)      NODE_BIN="" ;;
 esac
-# 退而求其次：用系统 node
+# Fall back to system node
 if [ ! -x "$NODE_BIN" ]; then NODE_BIN="$(command -v node)"; fi
 if [ -z "$NODE_BIN" ] || [ ! -x "$NODE_BIN" ]; then
-    echo "  [错误] 找不到 Node 运行环境。请先正常启动一次 U-Claw。"
-    read -p "  按回车关闭..."
+    echo "  [ERROR] Node runtime not found. Start U-Claw once first."
+    read -p "  Press Enter to close..."
     exit 1
 fi
 
-# 去掉 macOS 隔离属性，避免 Gatekeeper 拦截
+# Remove macOS quarantine so Gatekeeper does not block
 xattr -rd com.apple.quarantine "$UCLAW_DIR" 2>/dev/null || true
 
 "$NODE_BIN" "$UCLAW_DIR/lib/intranet-check.mjs" "$CONFIG_FILE"
 
 echo ""
-echo "  把整个窗口截图发给技术支持即可。"
+echo "  Screenshot this window and send it to support."
 echo ""
-read -p "  按回车关闭..."
+read -p "  Press Enter to close..."

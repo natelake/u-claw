@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>U-Claw SkillHub - AI 技能市场</title>
+<title>U-Claw SkillHub - AI skill market</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+body { font-family: -apple-system, "Segoe UI", "SF Pro Text", sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
 
 /* ── Sidebar ── */
 .sidebar {
@@ -202,20 +202,20 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
 <nav class="sidebar">
   <div class="sidebar-logo">
     <h2><span>U-Claw</span> SkillHub</h2>
-    <p>AI 技能市场</p>
+    <p>AI skill market</p>
   </div>
   <div class="sidebar-nav">
-    <a href="https://u-claw.org" target="_blank">U-Claw 官网</a>
-    <a href="https://github.com/openclaw/openclaw" target="_blank">OpenClaw 官方文档</a>
+    <a href="https://u-claw.org" target="_blank">U-Claw website</a>
+    <a href="https://github.com/openclaw/openclaw" target="_blank">OpenClaw docs</a>
     <a href="https://github.com/dongsheng123132/u-claw" target="_blank">GitHub</a>
     <div class="nav-divider"></div>
-    <a href="#featured" class="active">精选推荐</a>
-    <a href="#categories">全部分类</a>
-    <a href="#ranking">下载排行</a>
-    <a href="#install">安装指南</a>
+    <a href="#featured" class="active">Featured</a>
+    <a href="#categories">Categories</a>
+    <a href="#ranking">Top downloads</a>
+    <a href="#install">Install guide</a>
     <div class="nav-divider"></div>
-    <a href="#guide">使用教程</a>
-    <a href="#contact">联系我们</a>
+    <a href="#guide">Tutorials</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
@@ -224,27 +224,27 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
 
   <!-- Hero -->
   <section class="hero">
-    <h1>装上 Skill，<span class="accent">解锁 AI 超能力</span></h1>
-    <p class="subtitle">精选推荐 · 高速下载 · 轻松查找<br>ClawHub 13,000+ 个 AI Skills，U-Claw 为你加速</p>
+    <h1>Install a skill, <span class="accent">unlock extra AI powers</span></h1>
+    <p class="subtitle">Featured · fast download · easy search<br>13,000+ ClawHub skills, accelerated by U-Claw</p>
     <div class="stats">
-      <div class="stat-item"><div class="stat-num">13,729</div><div class="stat-label">技能总数</div></div>
-      <div class="stat-item"><div class="stat-num">32</div><div class="stat-label">分类</div></div>
-      <div class="stat-item"><div class="stat-num">2,868</div><div class="stat-label">精选优质</div></div>
-      <div class="stat-item"><div class="stat-num">52</div><div class="stat-label">U-Claw 预装</div></div>
+      <div class="stat-item"><div class="stat-num">13,729</div><div class="stat-label">Skills</div></div>
+      <div class="stat-item"><div class="stat-num">32</div><div class="stat-label">Categories</div></div>
+      <div class="stat-item"><div class="stat-num">2,868</div><div class="stat-label">Featured</div></div>
+      <div class="stat-item"><div class="stat-num">52</div><div class="stat-label">Bundled</div></div>
     </div>
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="搜索技能：如 github、邮件、天气、PDF..." />
-      <button onclick="handleSearch()">搜索</button>
+      <input type="text" id="searchInput" placeholder="Search skills: github, mail, weather, PDF..." />
+      <button onclick="handleSearch()">Search</button>
     </div>
   </section>
 
   <!-- Tabs -->
   <div class="tab-bar">
-    <a href="#featured" class="active" data-tab="featured">精选榜单</a>
-    <a href="#categories" data-tab="categories">全部分类</a>
-    <a href="#ranking" data-tab="ranking">下载排行</a>
-    <a href="#install" data-tab="install">安装指南</a>
-    <a href="#guide" data-tab="guide">使用教程</a>
+    <a href="#featured" class="active" data-tab="featured">Featured list</a>
+    <a href="#categories" data-tab="categories">Categories</a>
+    <a href="#ranking" data-tab="ranking">Top downloads</a>
+    <a href="#install" data-tab="install">Install guide</a>
+    <a href="#guide" data-tab="guide">Tutorials</a>
   </div>
 
   <!-- ── Content Panels ── -->
@@ -254,75 +254,75 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
     <div id="panel-featured" class="panel active">
 
       <div class="section-header">
-        <h2>U-Claw 必装技能 TOP 5</h2>
-        <span class="badge">官方推荐</span>
+        <h2>U-Claw must-have skills — top 5</h2>
+        <span class="badge">Official pick</span>
       </div>
       <div class="skill-grid">
         <div class="skill-card" onclick="installSkill('github')">
-          <div class="featured-badge">必装</div>
+          <div class="featured-badge">Must-have</div>
           <div class="card-top">
             <div class="card-icon" style="background:#1a1a2e;">🐙</div>
             <div><div class="card-title">GitHub</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">管理 Issue、PR、搜索仓库、查看代码。开发者最强助手。</div>
+          <div class="card-desc">Manage issues, PRs, search repos, and read code. A strong helper for developers.</div>
           <div class="card-footer">
-            <span class="downloads">48,000+ 安装</span>
-            <span class="card-tag">开发</span>
+            <span class="downloads">48,000+ installs</span>
+            <span class="card-tag">Dev</span>
           </div>
         </div>
         <div class="skill-card" onclick="installSkill('tavily-search')">
-          <div class="featured-badge">必装</div>
+          <div class="featured-badge">Must-have</div>
           <div class="card-top">
             <div class="card-icon" style="background:#0a1a1a;">🔍</div>
             <div><div class="card-title">Tavily Search</div><div class="card-author">@tavily</div></div>
           </div>
-          <div class="card-desc">AI 驱动的网络搜索引擎。让你的 AI 助手能实时搜索互联网。</div>
+          <div class="card-desc">AI web search so your assistant can look things up in real time.</div>
           <div class="card-footer">
-            <span class="downloads">52,000+ 安装</span>
-            <span class="card-tag">搜索</span>
+            <span class="downloads">52,000+ installs</span>
+            <span class="card-tag">Search</span>
           </div>
         </div>
         <div class="skill-card" onclick="installSkill('summarize')">
-          <div class="featured-badge">必装</div>
+          <div class="featured-badge">Must-have</div>
           <div class="card-top">
             <div class="card-icon" style="background:#1a1a00;">📝</div>
             <div><div class="card-title">Summarize</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">总结网页、文章、PDF、视频内容。一键提取关键信息。</div>
+          <div class="card-desc">Summarize pages, articles, PDFs, and videos. Extract the key points.</div>
           <div class="card-footer">
-            <span class="downloads">36,000+ 安装</span>
-            <span class="card-tag">效率</span>
+            <span class="downloads">36,000+ installs</span>
+            <span class="card-tag">Productivity</span>
           </div>
         </div>
         <div class="skill-card" onclick="installSkill('himalaya')">
-          <div class="featured-badge">必装</div>
+          <div class="featured-badge">Must-have</div>
           <div class="card-top">
             <div class="card-icon" style="background:#1a0a1a;">📧</div>
             <div><div class="card-title">Himalaya</div><div class="card-author">@sostrovsky</div></div>
           </div>
-          <div class="card-desc">收发邮件、搜索邮件、管理文件夹。支持 Gmail/Outlook/QQ 邮箱。</div>
+          <div class="card-desc">Send, search, and file mail. Works with Gmail, Outlook, and QQ Mail.</div>
           <div class="card-footer">
-            <span class="downloads">21,000+ 安装</span>
-            <span class="card-tag">邮件</span>
+            <span class="downloads">21,000+ installs</span>
+            <span class="card-tag">Mail</span>
           </div>
         </div>
         <div class="skill-card" onclick="installSkill('browser-relay')">
-          <div class="featured-badge">必装</div>
+          <div class="featured-badge">Must-have</div>
           <div class="card-top">
             <div class="card-icon" style="background:#0a0a1a;">🌐</div>
             <div><div class="card-title">Browser Relay</div><div class="card-author">@nicosql</div></div>
           </div>
-          <div class="card-desc">AI 控制浏览器，自动填表、截图、抓取网页数据。</div>
+          <div class="card-desc">Let AI drive a browser: fill forms, screenshot, and scrape pages.</div>
           <div class="card-footer">
-            <span class="downloads">29,000+ 安装</span>
-            <span class="card-tag">自动化</span>
+            <span class="downloads">29,000+ installs</span>
+            <span class="card-tag">Automation</span>
           </div>
         </div>
       </div>
 
       <div class="section-header" style="margin-top:40px;">
-        <h2>效率工具</h2>
-        <span class="badge">日常必备</span>
+        <h2>Productivity tools</h2>
+        <span class="badge">Everyday</span>
       </div>
       <div class="skill-grid">
         <div class="skill-card" onclick="installSkill('weather')">
@@ -330,54 +330,54 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
             <div class="card-icon" style="background:#0a1a2e;">🌤</div>
             <div><div class="card-title">Weather</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">查询全球天气预报。支持多日预报和实时天气。</div>
-          <div class="card-footer"><span class="downloads">18,000+ 安装</span><span class="card-tag">生活</span></div>
+          <div class="card-desc">Global weather: multi-day forecast and live conditions.</div>
+          <div class="card-footer"><span class="downloads">18,000+ installs</span><span class="card-tag">Life</span></div>
         </div>
         <div class="skill-card" onclick="installSkill('apple-notes')">
           <div class="card-top">
             <div class="card-icon" style="background:#1a1a00;">📒</div>
             <div><div class="card-title">Apple Notes</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">读写 Apple 备忘录。用语音或文字快速记录想法。</div>
-          <div class="card-footer"><span class="downloads">15,000+ 安装</span><span class="card-tag">笔记</span></div>
+          <div class="card-desc">Read and write Apple Notes. Capture ideas by voice or text.</div>
+          <div class="card-footer"><span class="downloads">15,000+ installs</span><span class="card-tag">Notes</span></div>
         </div>
         <div class="skill-card" onclick="installSkill('apple-reminders')">
           <div class="card-top">
             <div class="card-icon" style="background:#2e0a0a;">⏰</div>
             <div><div class="card-title">Apple Reminders</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">创建和管理提醒事项。"提醒我明天下午3点开会"。</div>
-          <div class="card-footer"><span class="downloads">12,000+ 安装</span><span class="card-tag">效率</span></div>
+          <div class="card-desc">Create and manage reminders. Example: remind me tomorrow at 3pm.</div>
+          <div class="card-footer"><span class="downloads">12,000+ installs</span><span class="card-tag">Productivity</span></div>
         </div>
         <div class="skill-card" onclick="installSkill('obsidian')">
           <div class="card-top">
             <div class="card-icon" style="background:#1a0a2e;">💎</div>
             <div><div class="card-title">Obsidian</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">在 Obsidian 知识库中创建、搜索、管理笔记。</div>
-          <div class="card-footer"><span class="downloads">22,000+ 安装</span><span class="card-tag">知识管理</span></div>
+          <div class="card-desc">Create, search, and manage notes in an Obsidian vault.</div>
+          <div class="card-footer"><span class="downloads">22,000+ installs</span><span class="card-tag">Knowledge</span></div>
         </div>
         <div class="skill-card" onclick="installSkill('notion')">
           <div class="card-top">
             <div class="card-icon" style="background:#1a1a1a;">📋</div>
             <div><div class="card-title">Notion</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">创建 Notion 页面、管理数据库、搜索工作区内容。</div>
-          <div class="card-footer"><span class="downloads">19,000+ 安装</span><span class="card-tag">效率</span></div>
+          <div class="card-desc">Create Notion pages, manage databases, search a workspace.</div>
+          <div class="card-footer"><span class="downloads">19,000+ installs</span><span class="card-tag">Productivity</span></div>
         </div>
         <div class="skill-card" onclick="installSkill('nano-pdf')">
           <div class="card-top">
             <div class="card-icon" style="background:#2e1a0a;">📄</div>
             <div><div class="card-title">Nano PDF</div><div class="card-author">@nicosql</div></div>
           </div>
-          <div class="card-desc">编辑 PDF 文件：合并、拆分、加水印、提取文本。</div>
-          <div class="card-footer"><span class="downloads">14,000+ 安装</span><span class="card-tag">办公</span></div>
+          <div class="card-desc">Edit PDFs: merge, split, watermark, extract text.</div>
+          <div class="card-footer"><span class="downloads">14,000+ installs</span><span class="card-tag">Office</span></div>
         </div>
       </div>
 
       <div class="section-header" style="margin-top:40px;">
-        <h2>编程开发</h2>
-        <span class="badge">开发者最爱</span>
+        <h2>CodingDev</h2>
+        <span class="badge">Developer favorites</span>
       </div>
       <div class="skill-grid">
         <div class="skill-card" onclick="installSkill('coding-agent')">
@@ -385,32 +385,32 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
             <div class="card-icon" style="background:#0a2e0a;">🤖</div>
             <div><div class="card-title">Coding Agent</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">委派编程任务给 AI Agent。重构代码、写测试、修 bug。</div>
-          <div class="card-footer"><span class="downloads">31,000+ 安装</span><span class="card-tag">编程</span></div>
+          <div class="card-desc">Hand coding tasks to an AI agent: refactor, tests, bugfixes.</div>
+          <div class="card-footer"><span class="downloads">31,000+ installs</span><span class="card-tag">Coding</span></div>
         </div>
         <div class="skill-card" onclick="installSkill('tmux')">
           <div class="card-top">
             <div class="card-icon" style="background:#0a0a0a;">🖥</div>
             <div><div class="card-title">Tmux</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">远程终端操作。查看服务器状态、执行命令、管理进程。</div>
-          <div class="card-footer"><span class="downloads">11,000+ 安装</span><span class="card-tag">运维</span></div>
+          <div class="card-desc">Remote terminal: check a server, run commands, manage processes.</div>
+          <div class="card-footer"><span class="downloads">11,000+ installs</span><span class="card-tag">Ops</span></div>
         </div>
         <div class="skill-card" onclick="installSkill('openai-image-gen')">
           <div class="card-top">
             <div class="card-icon" style="background:#2e1a2e;">🎨</div>
             <div><div class="card-title">OpenAI Image Gen</div><div class="card-author">@openclaw</div></div>
           </div>
-          <div class="card-desc">DALL-E AI 绘图。用自然语言描述，生成高质量图片。</div>
-          <div class="card-footer"><span class="downloads">26,000+ 安装</span><span class="card-tag">创作</span></div>
+          <div class="card-desc">DALL-E image generation from a natural-language prompt.</div>
+          <div class="card-footer"><span class="downloads">26,000+ installs</span><span class="card-tag">Create</span></div>
         </div>
         <div class="skill-card" onclick="installSkill('peekaboo')">
           <div class="card-top">
             <div class="card-icon" style="background:#1a2e1a;">📸</div>
             <div><div class="card-title">Peekaboo</div><div class="card-author">@nicosql</div></div>
           </div>
-          <div class="card-desc">屏幕截图 + OCR。AI 能"看见"你的屏幕并理解内容。</div>
-          <div class="card-footer"><span class="downloads">17,000+ 安装</span><span class="card-tag">多模态</span></div>
+          <div class="card-desc">Screenshot + OCR so the AI can see and understand your screen.</div>
+          <div class="card-footer"><span class="downloads">17,000+ installs</span><span class="card-tag">Multimodal</span></div>
         </div>
       </div>
     </div>
@@ -418,62 +418,62 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
     <!-- ══ Categories ══ -->
     <div id="panel-categories" class="panel">
       <div class="section-header">
-        <h2>全部分类</h2>
-        <span class="badge">32 个分类</span>
+        <h2>Categories</h2>
+        <span class="badge">32 categories</span>
       </div>
       <div class="cat-grid">
-        <div class="cat-card" onclick="filterCat('coding')"><div class="cat-icon">💻</div><div class="cat-name">编程 Agent</div><div class="cat-count">55 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('web-dev')"><div class="cat-icon">🌐</div><div class="cat-name">Web 前端</div><div class="cat-count">46 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('git')"><div class="cat-icon">🔀</div><div class="cat-name">Git & GitHub</div><div class="cat-count">34 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('devops')"><div class="cat-icon">☁️</div><div class="cat-name">DevOps & 云</div><div class="cat-count">144 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('browser')"><div class="cat-icon">🖱</div><div class="cat-name">浏览器自动化</div><div class="cat-count">69 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('ai')"><div class="cat-icon">🧠</div><div class="cat-name">AI & LLMs</div><div class="cat-count">159 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('image')"><div class="cat-icon">🎨</div><div class="cat-name">图片 & 视频</div><div class="cat-count">41 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('productivity')"><div class="cat-icon">⚡</div><div class="cat-name">效率工具</div><div class="cat-count">93 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('data')"><div class="cat-icon">📊</div><div class="cat-name">数据 & 分析</div><div class="cat-count">18 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('notes')"><div class="cat-icon">📝</div><div class="cat-name">笔记 & 知识</div><div class="cat-count">38 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('email')"><div class="cat-icon">📧</div><div class="cat-name">邮件 & 通讯</div><div class="cat-count">24 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('social')"><div class="cat-icon">💬</div><div class="cat-name">社交媒体</div><div class="cat-count">31 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('search')"><div class="cat-icon">🔍</div><div class="cat-name">搜索 & 研究</div><div class="cat-count">47 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('smarthome')"><div class="cat-icon">🏠</div><div class="cat-name">智能家居</div><div class="cat-count">22 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('finance')"><div class="cat-icon">💰</div><div class="cat-name">金融 & 加密</div><div class="cat-count">28 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('security')"><div class="cat-icon">🛡</div><div class="cat-name">安全防护</div><div class="cat-count">19 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('voice')"><div class="cat-icon">🎙</div><div class="cat-name">语音 & TTS</div><div class="cat-count">15 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('file')"><div class="cat-icon">📁</div><div class="cat-name">文件管理</div><div class="cat-count">33 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('translate')"><div class="cat-icon">🌍</div><div class="cat-name">翻译</div><div class="cat-count">12 个技能</div></div>
-        <div class="cat-card" onclick="filterCat('calendar')"><div class="cat-icon">📅</div><div class="cat-name">日历 & 提醒</div><div class="cat-count">16 个技能</div></div>
+        <div class="cat-card" onclick="filterCat('coding')"><div class="cat-icon">💻</div><div class="cat-name">Coding Agent</div><div class="cat-count">55 skills</div></div>
+        <div class="cat-card" onclick="filterCat('web-dev')"><div class="cat-icon">🌐</div><div class="cat-name">Web frontend</div><div class="cat-count">46 skills</div></div>
+        <div class="cat-card" onclick="filterCat('git')"><div class="cat-icon">🔀</div><div class="cat-name">Git & GitHub</div><div class="cat-count">34 skills</div></div>
+        <div class="cat-card" onclick="filterCat('devops')"><div class="cat-icon">☁️</div><div class="cat-name">DevOps and cloud</div><div class="cat-count">144 skills</div></div>
+        <div class="cat-card" onclick="filterCat('browser')"><div class="cat-icon">🖱</div><div class="cat-name">Browser automation</div><div class="cat-count">69 skills</div></div>
+        <div class="cat-card" onclick="filterCat('ai')"><div class="cat-icon">🧠</div><div class="cat-name">AI & LLMs</div><div class="cat-count">159 skills</div></div>
+        <div class="cat-card" onclick="filterCat('image')"><div class="cat-icon">🎨</div><div class="cat-name">Image and video</div><div class="cat-count">41 skills</div></div>
+        <div class="cat-card" onclick="filterCat('productivity')"><div class="cat-icon">⚡</div><div class="cat-name">Productivity tools</div><div class="cat-count">93 skills</div></div>
+        <div class="cat-card" onclick="filterCat('data')"><div class="cat-icon">📊</div><div class="cat-name">Data and analytics</div><div class="cat-count">18 skills</div></div>
+        <div class="cat-card" onclick="filterCat('notes')"><div class="cat-icon">📝</div><div class="cat-name">Notes and knowledge</div><div class="cat-count">38 skills</div></div>
+        <div class="cat-card" onclick="filterCat('email')"><div class="cat-icon">📧</div><div class="cat-name">Mail and comms</div><div class="cat-count">24 skills</div></div>
+        <div class="cat-card" onclick="filterCat('social')"><div class="cat-icon">💬</div><div class="cat-name">Social</div><div class="cat-count">31 skills</div></div>
+        <div class="cat-card" onclick="filterCat('search')"><div class="cat-icon">🔍</div><div class="cat-name">Search and research</div><div class="cat-count">47 skills</div></div>
+        <div class="cat-card" onclick="filterCat('smarthome')"><div class="cat-icon">🏠</div><div class="cat-name">Smart home</div><div class="cat-count">22 skills</div></div>
+        <div class="cat-card" onclick="filterCat('finance')"><div class="cat-icon">💰</div><div class="cat-name">Finance and crypto</div><div class="cat-count">28 skills</div></div>
+        <div class="cat-card" onclick="filterCat('security')"><div class="cat-icon">🛡</div><div class="cat-name">Security</div><div class="cat-count">19 skills</div></div>
+        <div class="cat-card" onclick="filterCat('voice')"><div class="cat-icon">🎙</div><div class="cat-name">Voice and TTS</div><div class="cat-count">15 skills</div></div>
+        <div class="cat-card" onclick="filterCat('file')"><div class="cat-icon">📁</div><div class="cat-name">Files</div><div class="cat-count">33 skills</div></div>
+        <div class="cat-card" onclick="filterCat('translate')"><div class="cat-icon">🌍</div><div class="cat-name">Translate</div><div class="cat-count">12 skills</div></div>
+        <div class="cat-card" onclick="filterCat('calendar')"><div class="cat-icon">📅</div><div class="cat-name">Calendar and reminders</div><div class="cat-count">16 skills</div></div>
       </div>
       <div style="text-align:center; margin-top:24px; color:#666; font-size:0.9em;">
-        更多分类请在搜索框输入关键词，或使用命令：<code style="color:#ff6b35; background:#1a1a1a; padding:2px 8px; border-radius:4px;">openclaw skills search 关键词</code>
+        For more categories, type a keyword or run:<code style="color:#ff6b35; background:#1a1a1a; padding:2px 8px; border-radius:4px;">openclaw skills search keyword</code>
       </div>
     </div>
 
     <!-- ══ Ranking ══ -->
     <div id="panel-ranking" class="panel">
       <div class="section-header">
-        <h2>下载排行榜</h2>
-        <span class="badge">2026 年 3 月</span>
+        <h2>Top downloads</h2>
+        <span class="badge">March 2026</span>
       </div>
       <table class="rank-table">
         <thead>
-          <tr><th>#</th><th>技能</th><th>分类</th><th>下载量</th><th>安装命令</th></tr>
+          <tr><th>#</th><th>Skill</th><th>Categories</th><th>Downloads</th><th>Install command</th></tr>
         </thead>
         <tbody>
-          <tr><td class="rank-num">1</td><td class="rank-name">Tavily Search</td><td><span class="card-tag">搜索</span></td><td class="rank-dl">52,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @tavily/search</code></td></tr>
-          <tr><td class="rank-num">2</td><td class="rank-name">GitHub</td><td><span class="card-tag">开发</span></td><td class="rank-dl">48,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/github</code></td></tr>
+          <tr><td class="rank-num">1</td><td class="rank-name">Tavily Search</td><td><span class="card-tag">Search</span></td><td class="rank-dl">52,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @tavily/search</code></td></tr>
+          <tr><td class="rank-num">2</td><td class="rank-name">GitHub</td><td><span class="card-tag">Dev</span></td><td class="rank-dl">48,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/github</code></td></tr>
           <tr><td class="rank-num">3</td><td class="rank-name">Capability Evolver</td><td><span class="card-tag">AI</span></td><td class="rank-dl">35,581</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @cap/evolver</code></td></tr>
-          <tr><td class="rank-num">4</td><td class="rank-name">Coding Agent</td><td><span class="card-tag">编程</span></td><td class="rank-dl">31,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/coding-agent</code></td></tr>
-          <tr><td class="rank-num">5</td><td class="rank-name">Browser Relay</td><td><span class="card-tag">自动化</span></td><td class="rank-dl">29,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @nicosql/browser-relay</code></td></tr>
-          <tr><td class="rank-num">6</td><td class="rank-name">OpenAI Image Gen</td><td><span class="card-tag">创作</span></td><td class="rank-dl">26,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/openai-image-gen</code></td></tr>
-          <tr><td class="rank-num">7</td><td class="rank-name">Obsidian</td><td><span class="card-tag">笔记</span></td><td class="rank-dl">22,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/obsidian</code></td></tr>
-          <tr><td class="rank-num">8</td><td class="rank-name">Himalaya</td><td><span class="card-tag">邮件</span></td><td class="rank-dl">21,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @sostrovsky/himalaya</code></td></tr>
-          <tr><td class="rank-num">9</td><td class="rank-name">Notion</td><td><span class="card-tag">效率</span></td><td class="rank-dl">19,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/notion</code></td></tr>
-          <tr><td class="rank-num">10</td><td class="rank-name">Weather</td><td><span class="card-tag">生活</span></td><td class="rank-dl">18,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/weather</code></td></tr>
-          <tr><td class="rank-num">11</td><td class="rank-name">Peekaboo</td><td><span class="card-tag">多模态</span></td><td class="rank-dl">17,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @nicosql/peekaboo</code></td></tr>
-          <tr><td class="rank-num">12</td><td class="rank-name">Wacli</td><td><span class="card-tag">自动化</span></td><td class="rank-dl">16,415</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @nicosql/wacli</code></td></tr>
-          <tr><td class="rank-num">13</td><td class="rank-name">ByteRover</td><td><span class="card-tag">搜索</span></td><td class="rank-dl">16,004</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @byterover/search</code></td></tr>
+          <tr><td class="rank-num">4</td><td class="rank-name">Coding Agent</td><td><span class="card-tag">Coding</span></td><td class="rank-dl">31,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/coding-agent</code></td></tr>
+          <tr><td class="rank-num">5</td><td class="rank-name">Browser Relay</td><td><span class="card-tag">Automation</span></td><td class="rank-dl">29,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @nicosql/browser-relay</code></td></tr>
+          <tr><td class="rank-num">6</td><td class="rank-name">OpenAI Image Gen</td><td><span class="card-tag">Create</span></td><td class="rank-dl">26,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/openai-image-gen</code></td></tr>
+          <tr><td class="rank-num">7</td><td class="rank-name">Obsidian</td><td><span class="card-tag">Notes</span></td><td class="rank-dl">22,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/obsidian</code></td></tr>
+          <tr><td class="rank-num">8</td><td class="rank-name">Himalaya</td><td><span class="card-tag">Mail</span></td><td class="rank-dl">21,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @sostrovsky/himalaya</code></td></tr>
+          <tr><td class="rank-num">9</td><td class="rank-name">Notion</td><td><span class="card-tag">Productivity</span></td><td class="rank-dl">19,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/notion</code></td></tr>
+          <tr><td class="rank-num">10</td><td class="rank-name">Weather</td><td><span class="card-tag">Life</span></td><td class="rank-dl">18,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/weather</code></td></tr>
+          <tr><td class="rank-num">11</td><td class="rank-name">Peekaboo</td><td><span class="card-tag">Multimodal</span></td><td class="rank-dl">17,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @nicosql/peekaboo</code></td></tr>
+          <tr><td class="rank-num">12</td><td class="rank-name">Wacli</td><td><span class="card-tag">Automation</span></td><td class="rank-dl">16,415</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @nicosql/wacli</code></td></tr>
+          <tr><td class="rank-num">13</td><td class="rank-name">ByteRover</td><td><span class="card-tag">Search</span></td><td class="rank-dl">16,004</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @byterover/search</code></td></tr>
           <tr><td class="rank-num">14</td><td class="rank-name">Self-Improving Agent</td><td><span class="card-tag">AI</span></td><td class="rank-dl">15,962</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @self-improving-agent</code></td></tr>
-          <tr><td class="rank-num">15</td><td class="rank-name">Apple Notes</td><td><span class="card-tag">笔记</span></td><td class="rank-dl">15,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/apple-notes</code></td></tr>
+          <tr><td class="rank-num">15</td><td class="rank-name">Apple Notes</td><td><span class="card-tag">Notes</span></td><td class="rank-dl">15,000+</td><td><code style="color:#ff6b35; font-size:0.8em;">openclaw skills install @openclaw/apple-notes</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -481,26 +481,26 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
     <!-- ══ Install ══ -->
     <div id="panel-install" class="panel">
       <div class="section-header">
-        <h2>安装技能</h2>
+        <h2>Install a skill</h2>
       </div>
 
       <div class="mode-tabs">
-        <button class="mode-tab active" onclick="switchMode(this, 'agent')">我是 Agent</button>
-        <button class="mode-tab" onclick="switchMode(this, 'human')">我是 Human</button>
+        <button class="mode-tab active" onclick="switchMode(this, 'agent')">I am the agent</button>
+        <button class="mode-tab" onclick="switchMode(this, 'human')">I am a human</button>
       </div>
 
       <div id="mode-agent" class="mode-panel">
         <div class="install-box">
           <div class="install-left">
-            <h3>将此提示发送给你的 <span>Agent</span>，以安装技能</h3>
-            <p>复制下面的命令，粘贴到你的 OpenClaw 对话中。Agent 会自动搜索和安装。</p>
+            <h3>Send this prompt to your <span>Agent</span> to install a skill</h3>
+            <p>Copy a command below and paste it into OpenClaw. The agent will search and install.</p>
             <div class="install-cmd">
-              <code>帮我安装 [技能名称] 这个 skill</code>
-              <button onclick="copyText(this, '帮我安装 [技能名称] 这个 skill')">复制</button>
+              <code>Install the [skill-name] skill for me</code>
+              <button onclick="copyText(this, 'Install the [skill-name] skill for me')">Copy</button>
             </div>
             <div class="install-cmd" style="margin-top:8px;">
-              <code>搜索关于 [功能描述] 的 skill 并安装最合适的</code>
-              <button onclick="copyText(this, '搜索关于 [功能描述] 的 skill 并安装最合适的')">复制</button>
+              <code>Search for a skill about [what I need] and install the best match</code>
+              <button onclick="copyText(this, 'Search for a skill about [what I need] and install the best match')">Copy</button>
             </div>
           </div>
         </div>
@@ -509,46 +509,46 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
       <div id="mode-human" class="mode-panel" style="display:none;">
         <div class="install-box">
           <div class="install-left">
-            <h3>终端命令安装</h3>
-            <p>在终端中直接运行以下命令：</p>
+            <h3>Install from the terminal</h3>
+            <p>Run these in a terminal:</p>
             <div class="install-cmd">
-              <code>openclaw skills search 关键词</code>
-              <button onclick="copyText(this, 'openclaw skills search 关键词')">复制</button>
+              <code>openclaw skills search keyword</code>
+              <button onclick="copyText(this, 'openclaw skills search keyword')">Copy</button>
             </div>
             <div class="install-cmd" style="margin-top:8px;">
-              <code>openclaw skills install @作者/技能名</code>
-              <button onclick="copyText(this, 'openclaw skills install @作者/技能名')">复制</button>
+              <code>openclaw skills install @author/skill</code>
+              <button onclick="copyText(this, 'openclaw skills install @author/skill')">Copy</button>
             </div>
             <div class="install-cmd" style="margin-top:8px;">
-              <code>openclaw clawhub search 关键词</code>
-              <button onclick="copyText(this, 'openclaw clawhub search 关键词')">复制</button>
+              <code>openclaw clawhub search keyword</code>
+              <button onclick="copyText(this, 'openclaw clawhub search keyword')">Copy</button>
             </div>
           </div>
         </div>
       </div>
 
       <div style="margin-top:32px;">
-        <h3 style="margin-bottom:16px;">常用操作速查</h3>
+        <h3 style="margin-bottom:16px;">Quick reference</h3>
         <table class="rank-table">
-          <thead><tr><th>操作</th><th>命令</th></tr></thead>
+          <thead><tr><th>Action</th><th>Command</th></tr></thead>
           <tbody>
-            <tr><td>搜索技能</td><td><code style="color:#ff6b35;">openclaw skills search 关键词</code></td></tr>
-            <tr><td>安装技能</td><td><code style="color:#ff6b35;">openclaw skills install @作者/技能名</code></td></tr>
-            <tr><td>查看已装技能</td><td><code style="color:#ff6b35;">openclaw skills list</code></td></tr>
-            <tr><td>卸载技能</td><td><code style="color:#ff6b35;">openclaw skills uninstall 技能名</code></td></tr>
-            <tr><td>更新技能</td><td><code style="color:#ff6b35;">openclaw skills update 技能名</code></td></tr>
-            <tr><td>ClawHub 搜索</td><td><code style="color:#ff6b35;">openclaw clawhub search 关键词</code></td></tr>
-            <tr><td>查看技能详情</td><td><code style="color:#ff6b35;">openclaw skills info @作者/技能名</code></td></tr>
+            <tr><td>Search skills</td><td><code style="color:#ff6b35;">openclaw skills search keyword</code></td></tr>
+            <tr><td>Install a skill</td><td><code style="color:#ff6b35;">openclaw skills install @author/skill</code></td></tr>
+            <tr><td>List installed skills</td><td><code style="color:#ff6b35;">openclaw skills list</code></td></tr>
+            <tr><td>Uninstall a skill</td><td><code style="color:#ff6b35;">openclaw skills uninstall skill-name</code></td></tr>
+            <tr><td>Update a skill</td><td><code style="color:#ff6b35;">openclaw skills update skill-name</code></td></tr>
+            <tr><td>ClawHub Search</td><td><code style="color:#ff6b35;">openclaw clawhub search keyword</code></td></tr>
+            <tr><td>Skill details</td><td><code style="color:#ff6b35;">openclaw skills info @author/skill</code></td></tr>
           </tbody>
         </table>
       </div>
 
       <div style="margin-top:32px;">
-        <h3 style="margin-bottom:16px;">U-Claw 用户专属</h3>
+        <h3 style="margin-bottom:16px;">For U-Claw users</h3>
         <div class="install-box">
           <div class="install-left">
-            <h3><span>52 个技能已预装</span>，开箱即用</h3>
-            <p>U-Claw 已内置最常用的 52 个官方技能，无需联网下载。在启动菜单选 [13] 可浏览完整列表。<br>需要更多技能？使用上面的命令从 ClawHub 在线安装。</p>
+            <h3><span>52 skills preinstalled</span>, ready to use</h3>
+            <p>U-Claw ships 52 official skills. No download needed. Use menu item [13] for the list.<br>Need more? Install from ClawHub with the commands above.</p>
           </div>
         </div>
       </div>
@@ -557,51 +557,51 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
     <!-- ══ Guide ══ -->
     <div id="panel-guide" class="panel">
       <div class="section-header">
-        <h2>使用教程</h2>
+        <h2>Tutorials</h2>
       </div>
 
       <div class="skill-grid" style="grid-template-columns: 1fr;">
         <div class="skill-card" onclick="window.open('教程-OpenClaw中国区完全指南.md')">
           <div class="card-top">
             <div class="card-icon" style="background:#1a1a00;">📖</div>
-            <div><div class="card-title">OpenClaw 中国区完全指南</div><div class="card-author">U-Claw 出品</div></div>
+            <div><div class="card-title">OpenClaw China-region guide</div><div class="card-author">by U-Claw</div></div>
           </div>
-          <div class="card-desc">从安装到配置到日常使用，一篇搞定。包含国内镜像设置、模型选择、QQ/飞书接入。</div>
+          <div class="card-desc">Install, configure, and daily use in one guide. Mirrors, model picks, optional QQ/Feishu.</div>
         </div>
         <a href="https://datawhalechina.github.io/hello-claw/" target="_blank" style="text-decoration:none;">
           <div class="skill-card">
             <div class="card-top">
               <div class="card-icon" style="background:#0a2e0a;">🐳</div>
-              <div><div class="card-title">Hello Claw（Datawhale 教程）</div><div class="card-author">推荐资源 · datawhalechina</div></div>
+              <div><div class="card-title">Hello Claw (Datawhale tutorial)</div><div class="card-author">Recommended · datawhalechina</div></div>
             </div>
-            <div class="card-desc">推荐阅读：体系化入门教程，从零基础到进阶，覆盖安装、配置、技能开发。</div>
+            <div class="card-desc">Recommended structured intro: install, config, and skill development.</div>
           </div>
         </a>
         <a href="https://github.com/yeuxuan/openclaw-docs" target="_blank" style="text-decoration:none;">
           <div class="skill-card">
             <div class="card-top">
               <div class="card-icon" style="background:#1a0a2e;">📚</div>
-              <div><div class="card-title">OpenClaw 中文文档（276 篇）</div><div class="card-author">推荐资源 · yeuxuan</div></div>
+              <div><div class="card-title">OpenClaw Chinese docs (276 articles)</div><div class="card-author">Recommended · yeuxuan</div></div>
             </div>
-            <div class="card-desc">推荐阅读：源码级深度文档，276 篇覆盖架构、网关、插件、技能开发全流程。</div>
+            <div class="card-desc">Recommended deep docs: architecture, gateway, plugins, skills.</div>
           </div>
         </a>
         <a href="https://github.com/VoltAgent/awesome-openclaw-skills" target="_blank" style="text-decoration:none;">
           <div class="skill-card">
             <div class="card-top">
               <div class="card-icon" style="background:#2e1a0a;">🦞</div>
-              <div><div class="card-title">Awesome OpenClaw Skills（精选 5400+）</div><div class="card-author">推荐资源 · VoltAgent</div></div>
+              <div><div class="card-title">Awesome OpenClaw Skills (5400+ curated)</div><div class="card-author">Recommended · VoltAgent</div></div>
             </div>
-            <div class="card-desc">推荐阅读：从 13000+ 技能中精选 5400+ 优质技能，分类整理，过滤垃圾和恶意代码。</div>
+            <div class="card-desc">Recommended: 5400+ curated skills from 13000+, categorized, junk filtered.</div>
           </div>
         </a>
         <a href="https://developer.aliyun.com/article/1715006" target="_blank" style="text-decoration:none;">
           <div class="skill-card">
             <div class="card-top">
               <div class="card-icon" style="background:#0a1a1a;">🏆</div>
-              <div><div class="card-title">13000+ Skills 怎么选？30 个最值得装</div><div class="card-author">阿里云开发者社区</div></div>
+              <div><div class="card-title">How to pick from 13000+ skills: 30 worth installing</div><div class="card-author">Alibaba Cloud developer community</div></div>
             </div>
-            <div class="card-desc">从海量技能中筛选 30 个最实用的，附 5 个必装 Skill 推荐。</div>
+            <div class="card-desc">30 practical picks plus 5 must-have recommendations.</div>
           </div>
         </a>
       </div>
@@ -612,11 +612,11 @@ body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
   <!-- ── Contact (anchor) ── -->
   <div id="contact" class="footer">
     <p style="margin-bottom:8px;">
-      <a href="https://u-claw.org" target="_blank">U-Claw 官网</a> &nbsp;·&nbsp;
+      <a href="https://u-claw.org" target="_blank">U-Claw website</a> &nbsp;·&nbsp;
       <a href="https://github.com/dongsheng123132/u-claw" target="_blank">GitHub</a> &nbsp;·&nbsp;
-      <a href="https://github.com/openclaw/openclaw" target="_blank">OpenClaw 官方</a>
+      <a href="https://github.com/openclaw/openclaw" target="_blank">OpenClaw official</a>
     </p>
-    <p>微信: hecare888 &nbsp;·&nbsp; Made with 🦞 by <a href="https://github.com/dongsheng123132">dongsheng</a></p>
+    <p>WeChat: hecare888 (upstream) &nbsp;·&nbsp; Made with 🦞 by <a href="https://github.com/dongsheng123132">dongsheng</a></p>
   </div>
 
 </div><!-- .main -->
@@ -654,7 +654,7 @@ function handleSearch() {
   // Show install panel with search hint
   const tabEl = document.querySelector('.tab-bar a[data-tab="install"]');
   tabEl.click();
-  alert('在终端中运行：\n\nopenclaw skills search ' + q + '\n\n或直接告诉你的 AI：\n"帮我搜索关于 ' + q + ' 的 skill"');
+  alert('Run in a terminal:\n\nopenclaw skills search ' + q + '\n\nor tell your AI:\n"Search for a skill about ' + q + '"');
 }
 document.getElementById('searchInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') handleSearch();
@@ -664,7 +664,7 @@ document.getElementById('searchInput').addEventListener('keydown', function(e) {
 function copyText(btn, text) {
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.textContent;
-    btn.textContent = '已复制';
+    btn.textContent = 'Copied';
     btn.style.background = '#4caf50';
     setTimeout(() => { btn.textContent = orig; btn.style.background = '#ff6b35'; }, 1500);
   }).catch(() => {
@@ -672,15 +672,15 @@ function copyText(btn, text) {
     const ta = document.createElement('textarea');
     ta.value = text; document.body.appendChild(ta); ta.select();
     document.execCommand('copy'); document.body.removeChild(ta);
-    btn.textContent = '已复制';
-    setTimeout(() => { btn.textContent = '复制'; }, 1500);
+    btn.textContent = 'Copied';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
   });
 }
 
 // ── Install Skill (shortcut) ──
 function installSkill(name) {
   const cmd = 'openclaw skills install @openclaw/' + name;
-  if (confirm('安装 ' + name + '？\n\n复制安装命令到剪贴板：\n' + cmd)) {
+  if (confirm('Install ' + name + '?\n\nCopy this install command:\n' + cmd)) {
     copyText(null, cmd);
     navigator.clipboard.writeText(cmd);
   }
@@ -688,7 +688,7 @@ function installSkill(name) {
 
 // ── Category filter ──
 function filterCat(cat) {
-  alert('在终端中运行：\n\nopenclaw clawhub search --category ' + cat + '\n\n浏览该分类下的所有技能');
+  alert('Run in a terminal:\n\nopenclaw clawhub search --category ' + cat + '\n\nto browse every skill in that category');
 }
 
 // ── Mode switch ──

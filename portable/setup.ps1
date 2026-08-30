@@ -9,8 +9,8 @@ $appDir = Join-Path $scriptDir "app"
 $coreDir = Join-Path $appDir "core"
 $runtimeDir = Join-Path $appDir "runtime"
 
-$mirror = "https://registry.npmmirror.com"
-$nodeMirror = "https://npmmirror.com/mirrors/node"
+$mirror = "https://registry.npmjs.org"
+$nodeMirror = "https://nodejs.org/dist"
 $nodeVersion = "v22.22.3"
 
 function Write-Step {

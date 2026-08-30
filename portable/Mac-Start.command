@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
 # U-Claw - Portable AI Agent (macOS)
-# Double-click to start / 双击启动
+# Double-click to start
 # ============================================================
 
 UCLAW_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -69,22 +69,22 @@ ls -t "$DATA_DIR"/logs/startup-*.log "$DATA_DIR"/logs/bug-report-*.log 2>/dev/nu
 
 # ---- 3. Check runtime ----
 if [ ! -f "$NODE_BIN" ]; then
-    echo -e "  ${YELLOW}首次在这台 Mac 使用 / 运行时缺失，自动补齐（约 1-2 分钟）...${NC}"
+    echo -e "  ${YELLOW}First use on this Mac / runtime missing. Completing setup (about 1-2 min, needs internet)...${NC}"
     echo ""
     if bash "$UCLAW_DIR/setup.sh"; then
         echo ""
         if [ -f "$NODE_BIN" ]; then
-            echo -e "  ${GREEN}✓ 环境就绪，继续启动${NC}"
+            echo -e "  ${GREEN}Ready. Continuing startup.${NC}"
         else
-            echo -e "  ${RED}setup 完成但仍找不到 $NODE_BIN${NC}"
-            echo "  可手动重试: bash setup.sh   或查看 data/logs/startup-*.log"
+            echo -e "  ${RED}setup finished but still missing $NODE_BIN${NC}"
+            echo "  Retry: bash setup.sh   or see data/logs/startup-*.log"
             read -p "  Press Enter to exit..."
             exit 1
         fi
     else
-        echo -e "  ${RED}自动搭建失败（多半是网络问题）。${NC}"
-        echo "  手动重试: bash setup.sh"
-        echo "  完整日志: $START_LOG （反馈 bug 时请一并附上）"
+        echo -e "  ${RED}Automatic setup failed (usually a network issue).${NC}"
+        echo "  Retry: bash setup.sh"
+        echo "  Full log: $START_LOG  (attach this when reporting a bug)"
         read -p "  Press Enter to exit..."
         exit 1
     fi
@@ -186,7 +186,7 @@ if [ ! -d "$CORE_DIR/node_modules" ]; then
     cd "$CORE_DIR"
     # 把 npm 缓存留在盘内，避免污染系统 ~/.npm（拔盘不留痕）
     npm_config_cache="$APP_DIR/.npm-cache" \
-    "$NODE_BIN" "$NODE_DIR/bin/npm" install --registry=https://registry.npmmirror.com --ignore-scripts --no-audit --no-fund --omit=dev 2>&1
+    "$NODE_BIN" "$NODE_DIR/bin/npm" install --registry=https://registry.npmjs.org --ignore-scripts --no-audit --no-fund --omit=dev 2>&1
     echo -e "  ${GREEN}Dependencies installed${NC}"
     echo ""
 fi
@@ -273,7 +273,7 @@ GW_PID=$!
 
 # ---- 11. 立刻打开"启动首屏"，给用户即时反馈（移植自 4.0 splash）----
 # 首屏 loading.html 自己轮询 /ready，就绪后停在选择页，不再自动冲进 Dashboard。
-echo -e "  ${YELLOW}首次启动需准备运行环境，约 30-90 秒，请稍候...${NC}"
+echo -e "  ${YELLOW}First start prepares the runtime (about 30-90 seconds). Please wait...${NC}"
 # 用 file:// URL 确保 query string（?port=）能传给浏览器；裸路径 open 会把整串当文件名。
 open "file://$UCLAW_DIR/lib/loading.html?port=$PORT&token=uclaw" 2>/dev/null || true
 
@@ -285,7 +285,7 @@ open "file://$UCLAW_DIR/lib/loading.html?port=$PORT&token=uclaw" 2>/dev/null || 
 # 助手静默失败：读不到/解析不了配置就当"未配置"，宁可多弹一次也不能少弹。
 MODEL_CONFIGURED="$("$NODE_BIN" "$UCLAW_DIR/lib/check-model-configured.mjs" "$CONFIG_FILE" 2>/dev/null)"
 if [ "$MODEL_CONFIGURED" = "UCLAW_MODEL_CONFIGURED=1" ]; then
-    echo -e "  ${GREEN}已配置模型，仅打开 Dashboard，不再弹出 Config Center。${NC}"
+    echo -e "  ${GREEN}Model already configured. Opening Dashboard only (no Config Center popup).${NC}"
 else
     open "http://127.0.0.1:18788/" 2>/dev/null || true
 fi
@@ -335,19 +335,19 @@ if [ "$GW_EXIT" -ne 0 ]; then
     BUG_LOG="$DATA_DIR/logs/bug-report-$(date +%Y%m%d-%H%M%S).log"
     {
         echo "U-Claw Bug Report (auto-generated)"
-        echo "时间: $(date)"
-        echo "退出码: $GW_EXIT"
-        echo "版本: OPENCLAW $(cat "$UCLAW_DIR/OPENCLAW_VERSION" 2>/dev/null) / macOS $(sw_vers -productVersion 2>/dev/null) $(uname -m)"
+        echo "Time: $(date)"
+        echo "Exit code: $GW_EXIT"
+        echo "Version: OPENCLAW $(cat "$UCLAW_DIR/OPENCLAW_VERSION" 2>/dev/null) / macOS $(sw_vers -productVersion 2>/dev/null) $(uname -m)"
         echo ""
-        echo "== 本次启动日志尾部（最后 100 行）=="
+        echo "== Tail of this startup log (last 100 lines) =="
         tail -n 100 "$START_LOG" 2>/dev/null
         echo ""
-        echo "== OpenClaw 自身日志尾部（若有）=="
+        echo "== Tail of OpenClaw logs (if any) =="
         tail -n 50 "$HOME/Library/Caches/U-Claw"/*/openclaw*.log 2>/dev/null || true
     } > "$BUG_LOG" 2>&1
     chmod 644 "$BUG_LOG" 2>/dev/null
-    echo -e "  ${CYAN}Bug 报告已自动保存: data/logs/$(basename "$BUG_LOG")${NC}"
-    echo -e "  ${CYAN}反馈时把这个文件发给我们即可。${NC}"
+    echo -e "  ${CYAN}Bug report saved: data/logs/$(basename "$BUG_LOG")${NC}"
+    echo -e "  ${CYAN}Attach this file when reporting a bug.${NC}"
 fi
 kill $CONFIG_PID 2>/dev/null
 "$NODE_BIN" "$UCLAW_DIR/lib/portable-instance-lock.mjs" release "$INSTANCE_ROOT" "$STATE_DIR" "$$" 2>/dev/null || true

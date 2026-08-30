@@ -1,8 +1,8 @@
 #!/bin/bash
 # ============================================================
 # U-Claw - Interactive CLI (macOS)
-# 进阶用户：双击打开一个配置好环境的终端，可直接敲 openclaw 命令。
-# 复用与 Mac-Start.command 一致的便携环境（盘内 Node + 盘内数据）。
+# Advanced: double-click for a terminal with openclaw on PATH.
+# Same portable env as Mac-Start.command (Node + data on the stick).
 # ============================================================
 
 UCLAW_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -13,7 +13,7 @@ STATE_DIR="$DATA_DIR/.openclaw"
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; CYAN='\033[0;36m'; NC='\033[0m'
 
-# Detect CPU & set runtime（与 Mac-Start.command 一致）
+# Detect CPU & set runtime (same as Mac-Start.command)
 ARCH=$(uname -m)
 if [ "$ARCH" = "arm64" ]; then
     NODE_DIR="$APP_DIR/runtime/node-mac-arm64"
@@ -40,7 +40,7 @@ fi
 export OPENCLAW_HOME="$DATA_DIR"
 export OPENCLAW_STATE_DIR="$STATE_DIR"
 export OPENCLAW_CONFIG_PATH="$STATE_DIR/openclaw.json"
-# 盘内 node 和 .bin 放到 PATH 最前，让 openclaw 命令可直接调用
+# Put stick node and .bin first on PATH
 export PATH="$NODE_DIR/bin:$CORE_DIR/node_modules/.bin:$PATH"
 
 echo ""
@@ -59,5 +59,5 @@ echo -e "  Type ${GREEN}exit${NC} to close."
 echo -e "${CYAN}========================================${NC}"
 echo ""
 
-# 开一个继承上述环境的交互 shell
+# Interactive shell inheriting the portable env
 exec "$SHELL" -i
